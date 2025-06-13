@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\include">
+      <UniqueIdentifier>{3bd9a9b0-8647-4df3-a325-c7099a61c3cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\include\core">
+      <UniqueIdentifier>{0992a2d0-38e8-40a8-b8b0-c2206e0b55dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\include\interfaces">
+      <UniqueIdentifier>{0925aace-1a3d-49ac-9713-fbdd23e455ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\include\utils">
+      <UniqueIdentifier>{f4a1377d-45cd-4cd9-8296-d605efbf7fe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\include\core\Data_subclass">
+      <UniqueIdentifier>{9685d649-d5fd-4751-bb93-edc1edb55566}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\include\core\Distance_subclass">
+      <UniqueIdentifier>{640c883f-7c4b-453c-a0c5-2a2cf4ada79f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\core">
+      <UniqueIdentifier>{112cf3e6-b311-4d9b-9e3a-607ea939cb52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\utils">
+      <UniqueIdentifier>{4b699f25-8624-4fc8-971c-e2b608fb6283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\utils\NewFilter1">
+      <UniqueIdentifier>{d3b5a8c8-a9fb-4d9c-9f69-ec77df2ae800}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\core\Distance_subclass\LonePointDistance.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Distance_subclass\EuclideanDistance.cpp">
+      <Filter>源文件\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Data_subclass\VectorData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="metricSearchMain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\MetricSpaceSearch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\Solution.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Distance_subclass\ChebyshevDistance.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Distance_subclass\ManhattanDistance.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\core\Data_subclass\all_dataHead.h">
+      <Filter>头文件\include\core\Data_subclass</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Distance_subclass\all_distanceHead.h">
+      <Filter>头文件\include\core\Distance_subclass</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Distance_subclass\EuclideanDistance.h">
+      <Filter>头文件\include\core\Distance_subclass</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Distance_subclass\LonePointDistance.h">
+      <Filter>头文件\include\core\Distance_subclass</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Data_subclass\VectorData.h">
+      <Filter>头文件\include\core\Data_subclass</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\MetricDistance.h">
+      <Filter>头文件\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\interfaces\MetricData.h">
+      <Filter>头文件\include\interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\Solution.h">
+      <Filter>头文件\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\MetricSpaceSearch.h">
+      <Filter>头文件\include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Distance_subclass\ChebyshevDistance.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Distance_subclass\ManhattanDistance.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Data_subclass\StringData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Distance_subclass\EditDistance.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Distance_subclass\WeightedEditDistance.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
