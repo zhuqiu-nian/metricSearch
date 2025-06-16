@@ -15,5 +15,5 @@
 |**tests** | 测试文件|
 |**umad.txt**| 数据集-数据集来源： [UMAD](https://gitee.com/UMAD/UMAD/wikis/pages?sort_id=2497170&doc_id=840507#12-%E6%95%B0%E6%8D%AE%E9%9B%86%E4%BB%8B%E7%BB%8D) |
 # 3.修改日志
-**2025/6/13* 上传文件
+**2025/6/13** 上传文件
 **2025/6/15** 加入字符串数据类型的处理；修bug
