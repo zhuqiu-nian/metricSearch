@@ -1,14 +1,28 @@
 ﻿#pragma once
 #include "../core/Data_subclass/all_dataHead.h"
 #include "../core/Distance_subclass/all_distanceHead.h"
-
-// 数据集加载函数
-vector<shared_ptr<VectorData>> loadUMADData(const string& filename, int num_vectors);
+#include < functional >
 
 // 实验运行函数
-void runExperiments(const vector<shared_ptr<VectorData>>& dataset, int data_num);
-
-//预计算所有支撑点到数据点的距离
-static void precomputePivotDistances(
+void runExperiments(
     const vector<shared_ptr<MetricData>>& dataset,
-    const shared_ptr<MetricDistance>& distanceFunc);
+    int data_num,
+    int enableAllDistances,  // 0=所有；1/2/3=指定单个
+    int data_var);            // 1=向量；2=字符串
+
+void runExperimentsWithMultipleDistances(
+    const vector<shared_ptr<MetricData>>& dataset,
+    int data_num,
+    int enableAllDistances,  // 0=所有；1/2/3=指定单个
+    int data_var);            // 1=向量；2=字符串;3=蛋白质
+
+// 实验运行函数（查询模式）
+void runSearch(
+    const vector<shared_ptr<MetricData>>& dataset,
+    int distanceType,
+    int dataType);
+
+// 自定义输入查询点（返回 shared_ptr<MetricData>）
+shared_ptr<MetricData> inputCustomQuery(int dataType);
+
+

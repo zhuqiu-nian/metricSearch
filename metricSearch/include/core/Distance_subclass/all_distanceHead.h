@@ -9,3 +9,4 @@
 //字符串数据距离函数
 #include "EditDistance.h"
 #include "WeightedEditDistance.h"
+#include "HammingDistance.h"
