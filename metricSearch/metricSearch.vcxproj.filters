@@ -66,6 +66,21 @@
     <ClCompile Include="src\core\Distance_subclass\ManhattanDistance.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\Distance_subclass\WeightedEditDistance.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Distance_subclass\EditDistance.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Distance_subclass\HammingDistance.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\LoadData.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\metric_search\MetricRangeQuery.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\core\Data_subclass\all_dataHead.h">
@@ -108,6 +123,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\core\Distance_subclass\WeightedEditDistance.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Data_subclass\ProteinData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\core\Distance_subclass\HammingDistance.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\LoadData.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\metric_search\MetricRangeQuery.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

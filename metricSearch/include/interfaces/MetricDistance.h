@@ -16,6 +16,6 @@ using namespace std;
 class MetricDistance {
 public:
     virtual ~MetricDistance() = default;
-    virtual double distance(const MetricData& a, const MetricData& b) const = 0;
+    virtual long double distance(const MetricData& a, const MetricData& b) const = 0;
     virtual string getName() const = 0;
 };

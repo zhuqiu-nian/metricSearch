@@ -16,4 +16,5 @@ class MetricData {
 public:
     virtual ~MetricData() = default;
     virtual string toString() const = 0;
+    virtual int getId() const = 0;
 };
