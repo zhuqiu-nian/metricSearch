@@ -1,9 +1,9 @@
 ﻿#include "../../../include/core/Data_subclass/VectorData.h"
 
 // VectorData 实现
-VectorData::VectorData(vector<double> vec, int id) : vector_(move(vec)), id_(id) {}
+VectorData::VectorData(vector<long double> vec, int id) : vector_(move(vec)), id_(id) {}
 
-const vector<double>& VectorData::getVector() const { return vector_; }
+const vector<long double>& VectorData::getVector() const { return vector_; }
 
 int VectorData::getId() const { return id_; }
 

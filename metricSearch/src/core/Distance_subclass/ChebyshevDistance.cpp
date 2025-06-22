@@ -2,7 +2,7 @@
 #include "../../../include/core/Data_subclass/all_dataHead.h"
 
 // ChebyshevDistance 实现
-double ChebyshevDistance::distance(const MetricData& a, const MetricData& b) const {
+long double ChebyshevDistance::distance(const MetricData& a, const MetricData& b) const {
     const auto& va = dynamic_cast<const VectorData&>(a).getVector();
     const auto& vb = dynamic_cast<const VectorData&>(b).getVector();
 
@@ -10,9 +10,9 @@ double ChebyshevDistance::distance(const MetricData& a, const MetricData& b) con
         throw runtime_error("向量维度不匹配");
     }
 
-    double max_diff = 0.0;
+    long double max_diff = 0.0;
     for (size_t i = 0; i < va.size(); ++i) {
-        double diff = abs(va[i] - vb[i]);
+        long double diff = abs(va[i] - vb[i]);
         if (diff > max_diff) {
             max_diff = diff;
         }
@@ -21,5 +21,5 @@ double ChebyshevDistance::distance(const MetricData& a, const MetricData& b) con
 }
 
 string ChebyshevDistance::getName() const {
-    return "孤点距离";
+    return "切比雪夫距离";
 }

@@ -2,7 +2,7 @@
 #include "../../../include/core/Data_subclass/all_dataHead.h"
 
 // EuclideanDistance 实现
-double EuclideanDistance::distance(const MetricData& a, const MetricData& b) const {
+long double EuclideanDistance::distance(const MetricData& a, const MetricData& b) const {
     const auto& va = dynamic_cast<const VectorData&>(a).getVector();
     const auto& vb = dynamic_cast<const VectorData&>(b).getVector();
 
@@ -10,9 +10,9 @@ double EuclideanDistance::distance(const MetricData& a, const MetricData& b) con
         throw runtime_error("向量维度不匹配");
     }
 
-    double sum = 0.0;
+    long double sum = 0.0;
     for (size_t i = 0; i < va.size(); ++i) {
-        double diff = va[i] - vb[i];
+        long double diff = va[i] - vb[i];
         sum += diff * diff;
     }
     return sqrt(sum);

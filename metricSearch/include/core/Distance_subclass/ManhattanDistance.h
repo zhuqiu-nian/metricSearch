@@ -3,6 +3,6 @@
 
 class ManhattanDistance : public MetricDistance {
 public:
-    double distance(const MetricData& a, const MetricData& b) const override;
+    long double distance(const MetricData& a, const MetricData& b) const override;
     std::string getName() const override { return "Âü¹ş¶Ù¾àÀë"; }
 };

@@ -5,6 +5,6 @@
 // ChebyshevDistancce¾àÀëº¯Êý
 class ChebyshevDistance : public MetricDistance {
 public:
-    double distance(const MetricData& a, const MetricData& b) const override;
+    long double distance(const MetricData& a, const MetricData& b) const override;
     string getName() const override;
 };

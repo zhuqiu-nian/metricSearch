@@ -2,7 +2,7 @@
 #include "../../../include/core/Data_subclass/all_dataHead.h"
 #include <cmath>
 
-double LonePointDistance::distance(const MetricData& a, const MetricData& b) const {
+long double LonePointDistance::distance(const MetricData& a, const MetricData& b) const {
     // 动态类型转换确保数据可比较
     const auto& vecA = dynamic_cast<const VectorData&>(a).getVector();
     const auto& vecB = dynamic_cast<const VectorData&>(b).getVector();
