@@ -91,24 +91,6 @@ void MetricSpaceSearch::analyzePerformance(
         }
     }
 
-            stat->avgFilterRates[funcName] += 1.0 - (long double)(result.calculations) / maxPossibleCalcs;
-            stat->avgTimes[funcName] += result.timeMicrosec;
-            stat->totalCalcs[funcName] += result.calculations;
-        }
-    }
-
-    // 平均化
-    for (auto& stat : pivotStats) {
-        int rounds = allResults.size();
-
-        // 替换结构化绑定：for (auto& [name, count] : stat.totalCalcs)
-        for (const auto& pair : stat.totalCalcs) {
-            const string& name = pair.first;
-            stat.avgFilterRates[name] /= rounds;
-            stat.avgTimes[name] /= rounds;
-        }
-    }
-
     // 输出比较结果
     cout << "\n1. 支撑点效率对比:" << endl;
     for (const auto& stat : pivotStats) {
@@ -177,7 +159,3 @@ void MetricSpaceSearch::analyzePerformance(
 
     cout << "推荐使用: " << bestFunc->first << endl;
 }
-
-
-
-

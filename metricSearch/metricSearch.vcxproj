@@ -117,7 +117,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard_C>Default</LanguageStandard_C>
-      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +150,16 @@
     <ClCompile Include="src\core\Distance_subclass\ChebyshevDistance.cpp" />
     <ClCompile Include="src\core\Distance_subclass\ManhattanDistance.cpp" />
     <ClCompile Include="src\core\Distance_subclass\WeightedEditDistance.cpp" />
+    <ClCompile Include="src\index_structure\GeneralHyper-planeTree\GHTInternalNode.cpp" />
+    <ClCompile Include="src\index_structure\GeneralHyper-planeTree\GHTLeafNode.cpp" />
+    <ClCompile Include="src\index_structure\GeneralHyper-planeTree\GHTree.cpp" />
+    <ClCompile Include="src\index_structure\MultipleVantagePointTree\MVPTInternalNode.cpp" />
+    <ClCompile Include="src\index_structure\MultipleVantagePointTree\MVPTLeafNode.cpp" />
+    <ClCompile Include="src\index_structure\MultipleVantagePointTree\MVPTree.cpp" />
+    <ClCompile Include="src\index_structure\PivotTable\PivotTable.cpp" />
+    <ClCompile Include="src\index_structure\VantagePointTree\VPTInternalNode.cpp" />
+    <ClCompile Include="src\index_structure\VantagePointTree\VPTLeafNode.cpp" />
+    <ClCompile Include="src\index_structure\VantagePointTree\VPTree.cpp" />
     <ClCompile Include="src\metric_search\MetricNearestNeighbor.cpp" />
     <ClCompile Include="src\metric_search\MetricRangeQuery.cpp" />
     <ClCompile Include="src\metric_search\MetricSpaceBoundedKNN.cpp" />
@@ -157,6 +167,7 @@
     <ClCompile Include="src\utils\LoadData.cpp" />
     <ClCompile Include="src\utils\MetricSpaceSearch.cpp" />
     <ClCompile Include="src\utils\Solution.cpp" />
+    <ClCompile Include="src\utils\SystemLaunch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\core\Data_subclass\all_dataHead.h" />
@@ -171,6 +182,20 @@
     <ClInclude Include="include\core\Distance_subclass\ChebyshevDistance.h" />
     <ClInclude Include="include\core\Distance_subclass\ManhattanDistance.h" />
     <ClInclude Include="include\core\Distance_subclass\WeightedEditDistance.h" />
+    <ClInclude Include="include\index_structure\all_indexHead.h" />
+    <ClInclude Include="include\index_structure\GeneralHyper-planeTree\GHTInternalNode.h" />
+    <ClInclude Include="include\index_structure\GeneralHyper-planeTree\GHTLeafNode.h" />
+    <ClInclude Include="include\index_structure\GeneralHyper-planeTree\GHTNode.h" />
+    <ClInclude Include="include\index_structure\GeneralHyper-planeTree\GHTree.h" />
+    <ClInclude Include="include\index_structure\MultipleVantagePointTree\MVPTInternalNode.h" />
+    <ClInclude Include="include\index_structure\MultipleVantagePointTree\MVPTLeafNode.h" />
+    <ClInclude Include="include\index_structure\MultipleVantagePointTree\MVPTNode.h" />
+    <ClInclude Include="include\index_structure\MultipleVantagePointTree\MVPTree.h" />
+    <ClInclude Include="include\index_structure\PivotTable\PivotTable.h" />
+    <ClInclude Include="include\index_structure\VantagePointTree\VPTInternalNode.h" />
+    <ClInclude Include="include\index_structure\VantagePointTree\VPTLeafNode.h" />
+    <ClInclude Include="include\index_structure\VantagePointTree\VPTNode.h" />
+    <ClInclude Include="include\index_structure\VantagePointTree\VPTree.h" />
     <ClInclude Include="include\interfaces\MetricData.h" />
     <ClInclude Include="include\interfaces\MetricDistance.h" />
     <ClInclude Include="include\metric_search\all_search.h" />
@@ -181,6 +206,7 @@
     <ClInclude Include="include\utils\LoadData.h" />
     <ClInclude Include="include\utils\MetricSpaceSearch.h" />
     <ClInclude Include="include\utils\Solution.h" />
+    <ClInclude Include="include\utils\SystemLaunch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

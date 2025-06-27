@@ -90,6 +90,39 @@
     <ClCompile Include="src\metric_search\MetricNearestNeighbor.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\utils\SystemLaunch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\PivotTable\PivotTable.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\GeneralHyper-planeTree\GHTInternalNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\GeneralHyper-planeTree\GHTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\GeneralHyper-planeTree\GHTLeafNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\VantagePointTree\VPTInternalNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\VantagePointTree\VPTLeafNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\VantagePointTree\VPTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\MultipleVantagePointTree\MVPTLeafNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\MultipleVantagePointTree\MVPTInternalNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\MultipleVantagePointTree\MVPTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\core\Data_subclass\all_dataHead.h">
@@ -156,6 +189,51 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\metric_search\MetricNearestNeighbor.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\SystemLaunch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\PivotTable\PivotTable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\GeneralHyper-planeTree\GHTNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\GeneralHyper-planeTree\GHTInternalNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\GeneralHyper-planeTree\GHTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\GeneralHyper-planeTree\GHTLeafNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\all_indexHead.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\VantagePointTree\VPTNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\VantagePointTree\VPTInternalNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\VantagePointTree\VPTLeafNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\VantagePointTree\VPTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\MultipleVantagePointTree\MVPTNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\MultipleVantagePointTree\MVPTLeafNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\MultipleVantagePointTree\MVPTInternalNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\MultipleVantagePointTree\MVPTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
