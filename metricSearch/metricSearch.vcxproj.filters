@@ -81,6 +81,15 @@
     <ClCompile Include="src\metric_search\MetricRangeQuery.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\metric_search\MetricSpaceKNN.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\metric_search\MetricSpaceBoundedKNN.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\metric_search\MetricNearestNeighbor.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\core\Data_subclass\all_dataHead.h">
@@ -135,6 +144,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\metric_search\MetricRangeQuery.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\metric_search\MetricSpaceKNN.h.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\metric_search\MetricSpaceBoundedKNN.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\metric_search\all_search.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\metric_search\MetricNearestNeighbor.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

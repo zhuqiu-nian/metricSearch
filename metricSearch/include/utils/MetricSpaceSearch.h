@@ -10,6 +10,7 @@
 class MetricSpaceSearch {
 public:
     struct SearchResult {
+        // 所有查询共用字段
         shared_ptr<MetricData> nearest;// 找到的最近邻数据点
         shared_ptr<MetricData> pivot;// 使用的支撑点
         long double distance;// 查询点到最近邻的距离
@@ -18,11 +19,26 @@ public:
         vector<string> steps;// 搜索过程的步骤记录
         shared_ptr<MetricDistance> distanceFunc; // 使用的距离函数
 
-        // 添加构造函数
+        // 范围查询相关字段
+        vector<pair<shared_ptr<MetricData>, long double>> rangeResults; // <数据点, 距离>
+
+        // kNN 查询相关字段
+        vector<pair<shared_ptr<MetricData>, long double>> knnResults;   // <数据点, 距离>
+        int k = 0;                              // 请求的 k 值
+
+        // 距离受限的 kNN 查询相关字段
+        vector<pair<shared_ptr<MetricData>, long double>> boundedKnnResults; // <数据点, 距离>
+        int boundedK = 0;                       // 请求的 boundedK 值
+        long double radius = numeric_limits<long double>::max(); // 最大搜索半径
+
+        // 构造函数
         SearchResult() :
             distance(numeric_limits<long double>::max()),
             calculations(0),
-            timeMicrosec(0) {}
+            timeMicrosec(0),
+            k(0),
+            boundedK(0),
+            radius(numeric_limits<long double>::max()) {}
     };
 
     //用于存储距离的哈希表
@@ -71,13 +87,6 @@ public:
 
     // 清理缓存
     static void clearCache();
-
-    //基于三角不等式的度量空间最近邻搜索算法
-    static SearchResult nearestNeighbor(
-        const vector<shared_ptr<MetricData>>& dataset,
-        const shared_ptr<MetricData>& query,
-        const shared_ptr<MetricDistance>& distanceFunc,
-        const shared_ptr<MetricData>& pivot = nullptr);
 
     //分析搜索性能
     static void analyzePerformance(
