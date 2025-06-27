@@ -61,12 +61,12 @@ namespace MetricSpaceExtensions {
             long double upper_bound = d_pq + d_pd;
 
             if (lower_bound > radius) {
-                result.steps.push_back("跳过 " + data->toString() + "（下界剪枝）");
+                result.steps.push_back("跳过 " + data->toString() + "（下界剪枝）");//实际距离＞下界＞半径，直接排除
                 continue;
             }
 
             if (upper_bound <= radius) {
-                result.rangeResults.emplace_back(data, d_pq - d_pd); // 可优化为实际值？
+                result.rangeResults.emplace_back(data, -1.0L); // 半径＞上界＞实际距离，直接加入
                 result.steps.push_back("加入 " + data->toString() + "（上界剪枝）");
                 continue;
             }
