@@ -5,41 +5,99 @@
 #include <iostream>
 #include <vector>
 #include <memory>
-#include <string>
 #include <chrono>
 #include <stdexcept>
+#include <fstream>
+#include <string>
+#include <filesystem>     // C++17 起支持
+#include <algorithm>
 
 using namespace std;
+namespace fs = std::filesystem;
 
-// 数据集加载函数
+// 数据集加载函数（增强版）
 DataList loadUMADData(int data_var, int data_num) {
-    const std::string vectorFilename = "clusteredvector-2d-100k-100c.txt";      // 向量数据文件
-    const std::string stringFilename = "English.dic";       // 字符串数据文件
-    const std::string proteinFilename = "yeast.aa";         // 蛋白质数据文件
-
     DataList result;
 
+    // 根据 data_var 确定目录和数据类型
+    std::string baseDir = "data";      // 基础路径
+    std::string subDir;
+    std::string dataType;
+
     switch (data_var) {
-    case 1: { // 向量数据
-        auto vecData = loadVectorData(vectorFilename, data_num); // 假设已有该函数
-        result.assign(vecData.begin(), vecData.end());
-        std::cout << "[加载完成] 已加载向量数据集，共 " << vecData.size() << " 条。\n";
+    case 1:
+        subDir = "vector";
+        dataType = "向量";
         break;
-    }
-    case 2: { // 字符串数据
-        auto strData = loadStringData(stringFilename, data_num); // 假设已有该函数
-        result.assign(strData.begin(), strData.end());
-        std::cout << "[加载完成] 已加载字符串数据集，共 " << strData.size() << " 条。\n";
+    case 2:
+        subDir = "string";
+        dataType = "字符串";
         break;
-    }
-    case 3: { // 蛋白质序列数据
-        auto proteinData = loadProteinData(proteinFilename, data_num);
-        result.assign(proteinData.begin(), proteinData.end());
-        std::cout << "[加载完成] 已加载蛋白质序列数据集，共 " << proteinData.size() << " 条。\n";
+    case 3:
+        subDir = "protein";
+        dataType = "蛋白质";
         break;
-    }
     default:
         std::cerr << "[错误] 不支持的数据类型: " << data_var << "\n";
+        return result;
+    }
+
+    std::filesystem::path p = fs::absolute(baseDir + "/" + subDir);
+    std::string fullPath = p.string();  // 获取绝对路径
+
+    // 检查路径是否存在
+    if (!fs::exists(fullPath) || !fs::is_directory(fullPath)) {
+        std::cerr << "[错误] 文件夹不存在或不是目录: " << fullPath << "\n";
+        return result;
+    }
+
+    // 列出目录下所有文件
+    std::vector<std::string> files;
+    for (const auto& entry : fs::directory_iterator(fullPath)) {
+        if (entry.is_regular_file()) {
+            files.push_back(entry.path().filename().string());
+        }
+    }
+
+    if (files.empty()) {
+        std::cerr << "[警告] 在 '" << fullPath << "' 中未找到任何文件。\n";
+        return result;
+    }
+
+    // 显示选项并让用户选择
+    std::cout << "[选择数据集] 在 '" << dataType << "' 类型中找到以下文件：\n";
+    for (size_t i = 0; i < files.size(); ++i) {
+        std::cout << "  " << i + 1 << ". " << files[i] << "\n";
+    }
+
+    int choice;
+    do {
+        std::cout << "请输入要加载的文件编号 (1-" << files.size() << "): ";
+        std::cin >> choice;
+    } while (choice < 1 || choice > static_cast<int>(files.size()));
+
+    std::string selectedFile = fullPath + "/" + files[choice - 1];
+
+    // 加载对应数据集
+    switch (data_var) {
+    case 1: {
+        auto vecData = loadVectorData(selectedFile, data_num);
+        result.assign(vecData.begin(), vecData.end());
+        std::cout << "[加载完成] 已加载向量数据集 '" << files[choice - 1] << "', 共 " << vecData.size() << " 条。\n";
+        break;
+    }
+    case 2: {
+        auto strData = loadStringData(selectedFile, data_num);
+        result.assign(strData.begin(), strData.end());
+        std::cout << "[加载完成] 已加载字符串数据集 '" << files[choice - 1] << "', 共 " << strData.size() << " 条。\n";
+        break;
+    }
+    case 3: {
+        auto proteinData = loadProteinData(selectedFile, data_num);
+        result.assign(proteinData.begin(), proteinData.end());
+        std::cout << "[加载完成] 已加载蛋白质数据集 '" << files[choice - 1] << "', 共 " << proteinData.size() << " 条。\n";
+        break;
+    }
     }
 
     return result;
