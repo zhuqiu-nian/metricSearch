@@ -5,6 +5,7 @@
 #include "../../../include/interfaces/MetricDistance.h"
 #include "../../../include/utils/MetricSpaceSearch.h"
 #include "../../../include/utils/Solution.h"
+#include "../../PivotSelector/PivotSelector.h"
 
 #include <iostream>
 #include <algorithm>
@@ -15,9 +16,10 @@ long long VPTree::distanceCalculations_ = 0;
 
 std::unique_ptr<VPTNode> VPTree::bulkLoad(const std::vector<DataPtr>& data,
     int distanceType,
-    int dataType) {
+    int dataType,
+    std::vector<int> selectedPivots) {
     if (data.size() <= MaxLeafSize) {
-        return std::make_unique<VPTLeafNode>(data, distanceType, dataType);
+        return std::make_unique<VPTLeafNode>(data, distanceType, dataType, selectedPivots);
     }
 
     auto [vp, radius] = selectVPAndRadius(data, distanceType, dataType);
@@ -34,8 +36,8 @@ std::unique_ptr<VPTNode> VPTree::bulkLoad(const std::vector<DataPtr>& data,
             rightData.push_back(item);
     }
 
-    auto left = bulkLoad(leftData, distanceType, dataType);
-    auto right = bulkLoad(rightData, distanceType, dataType);
+    auto left = bulkLoad(leftData, distanceType, dataType, selectedPivots);
+    auto right = bulkLoad(rightData, distanceType, dataType, selectedPivots);
 
     return std::make_unique<VPTInternalNode>(vp, radius, std::move(left), std::move(right), dist);
 }
@@ -80,8 +82,34 @@ void VPTree::runVPTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& d
         return;
     }
 
+    //输入支撑点个数
+    int pivotCount;
+    std::cout << "请输入支撑点个数: ";
+    std::cin >> pivotCount;
+
+    if (pivotCount <= 0 || pivotCount >= static_cast<int>(dataset.size())) {
+        std::cerr << "支撑点个数必须大于0且小于数据总数。" << std::endl;
+        return;
+    }
+
+    //选择支撑点选择算法
+    PivotSelector::SelectionMethod method = PivotSelector::selectPivotMethodFromUser();
+
+    //创建距离函数
+    auto dist = MetricSpaceSearch::createDistanceFunction(distanceType, dataType);  // 创建距离函数
+
+    //调用 PivotSelector 生成支撑点索引
+    double alpha = 0.35; // 稀疏空间法参数
+    std::vector<int> selectedPivots = PivotSelector::selectPivots(
+        dataset,
+        pivotCount,
+        dist,
+        method,
+        alpha
+    );
+
     // 构建 VP 树
-    auto treeRoot = VPTree::bulkLoad(dataset, distanceType, dataType);
+    auto treeRoot = VPTree::bulkLoad(dataset, distanceType, dataType, selectedPivots);
 
     // 用户选择查询点来源
     int querySource;

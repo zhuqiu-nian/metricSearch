@@ -9,7 +9,8 @@ class GHTree {
 public:
     static std::unique_ptr<GHTNode> bulkLoad(const DataList& data,
         int distanceType,
-        int dataType);
+        int dataType,
+        std::vector<int> selectedPivots);
 
     static void runGHTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& dataset,
         int distanceType,
