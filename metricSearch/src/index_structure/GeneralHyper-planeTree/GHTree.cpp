@@ -2,7 +2,10 @@
 #include "../../../include/utils/MetricSpaceSearch.h"  // 包含 createDistanceFunction
 #include "../../../include/index_structure/GeneralHyper-planeTree/GHTInternalNode.h"
 #include "../../../include/index_structure/GeneralHyper-planeTree/GHTLeafNode.h"
+<<<<<<< HEAD
 #include "../../../include/utils/Solution.h"
+=======
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
 #include <algorithm>
 #include <random>
 #include <numeric>
@@ -71,6 +74,7 @@ void GHTree::runGHTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& d
     // 构建 GHT 树
     auto treeRoot = GHTree::bulkLoad(dataset, distanceType, dataType);
 
+<<<<<<< HEAD
     // 用户选择查询点来源
     int querySource;
     cout << "请选择查询点来源：\n"
@@ -112,6 +116,18 @@ void GHTree::runGHTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& d
     }
 
 
+=======
+    // 获取用户输入：查询对象索引
+    int queryIndex;
+    std::cout << "请选择查询对象索引 (0-" << dataset.size() - 1 << "): ";
+    std::cin >> queryIndex;
+
+    if (queryIndex < 0 || queryIndex >= static_cast<int>(dataset.size())) {
+        std::cerr << "无效的查询对象索引。" << std::endl;
+        return;
+    }
+
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
     // 获取用户输入：查询半径 r
     long double threshold;
     std::cout << "请输入查询半径 r: ";
@@ -123,13 +139,21 @@ void GHTree::runGHTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& d
     }
 
     // 获取查询对象
+<<<<<<< HEAD
     const MetricData& query = *queryPtr;
+=======
+    const MetricData& query = *dataset[queryIndex];
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
 
     // 执行范围查询
     auto results = treeRoot->rangeSearch(query, threshold, &GHTree::distanceCalculations_);
 
     // 过滤掉查询对象本身
     //注意，此处的query定义与Pivottable略有区别，所以此处写法不同
+<<<<<<< HEAD
+=======
+    auto queryPtr = dataset[queryIndex];
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
     std::vector<std::shared_ptr<MetricData>> filteredResults;
     for (const auto& item : results) {
         if (item.get() != queryPtr.get()) {
@@ -138,7 +162,11 @@ void GHTree::runGHTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& d
     }
 
     // 输出当前查询对象信息
+<<<<<<< HEAD
     std::cout << "\n- 查询对象 #" << queryPtr << ": " << queryPtr->toString() << std::endl;
+=======
+    std::cout << "\n- 查询对象 #" << queryIndex << ": " << dataset[queryIndex]->toString() << std::endl;
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
 
     // 输出结果
     std::cout << "\n找到匹配项数量（不包括查询对象自身）: " << filteredResults.size() << std::endl;

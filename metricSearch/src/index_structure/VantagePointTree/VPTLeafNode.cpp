@@ -4,6 +4,7 @@
 #include "../../../include/utils/MetricSpaceSearch.h"
 
 VPTLeafNode::VPTLeafNode(const DataList& data, int distanceType, int dataType)
+<<<<<<< HEAD
     : dataList_(data), distanceType_(distanceType), dataType_(dataType), isEmpty_(true)
 {
     // 先判断数据是否为空
@@ -29,6 +30,12 @@ std::vector<DataPtr> VPTLeafNode::rangeSearch(const MetricData& q, long double r
         return {};
     }
     return pivotTable_->search(q, r, distanceCount);
+=======
+    : pivotTable_(data, 2, distanceType, dataType), dataList_(data) {}
+
+std::vector<DataPtr> VPTLeafNode::rangeSearch(const MetricData& q, long double r, long long* distanceCount)  {
+    return pivotTable_.search(q, r, distanceCount);
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
 }
 
 DataList VPTLeafNode::getAll() const {

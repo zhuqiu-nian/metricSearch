@@ -2,6 +2,7 @@
 #include "../../../include/utils/MetricSpaceSearch.h"
 
 GHTLeafNode::GHTLeafNode(const DataList& data, int distanceType, int dataType)
+<<<<<<< HEAD
     : dataList_(data), distanceType_(distanceType), dataType_(dataType), isEmpty_(true)
 {
     // 先判断数据是否为空
@@ -27,4 +28,10 @@ std::vector<DataPtr> GHTLeafNode::rangeSearch(const MetricData& q, long double r
         return {};
     }
     return pivotTable_->search(q, r, distanceCount);  // 已经会过滤掉查询对象本身
+=======
+    : pivotTable_(data, 4, distanceType, dataType) {}  // 默认选4个支撑点
+
+std::vector<DataPtr> GHTLeafNode::rangeSearch(const MetricData& q, long double r, long long* distanceCount) {
+    return pivotTable_.search(q, r, distanceCount);  // 已经会过滤掉查询对象本身
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
 }
