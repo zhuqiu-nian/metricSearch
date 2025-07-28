@@ -50,9 +50,12 @@ private:
     // 辅助函数：构建距离表并计时
     void buildDistanceTable(int distanceType, int data_var);
 
+<<<<<<< HEAD
     // 新增：构建空或极小数据集的 PivotTable
     void buildEmpty(int distanceType, int data_var);
 
+=======
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
     static long long distanceCalculations_;  // 新增：类内距离计算次数统计
 
 };

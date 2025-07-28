@@ -18,6 +18,7 @@ PivotTable::PivotTable(const vector<shared_ptr<MetricData>>& allData,
     int distanceType,
     int data_var)
 {
+<<<<<<< HEAD
     // 如果数据集为空
     if (allData.empty()) {
         if (pivotIndices.empty()) {
@@ -27,11 +28,16 @@ PivotTable::PivotTable(const vector<shared_ptr<MetricData>>& allData,
         else {
             throw invalid_argument("数据集为空但请求构建支撑点");
         }
+=======
+    if (allData.empty()) {
+        throw invalid_argument("数据集为空");
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
     }
 
     cout << "[预处理] 开始计算支撑点距离..." << endl;
     cout << "[预处理] 数据集大小: " << allData.size() << endl;
 
+<<<<<<< HEAD
     auto start = high_resolution_clock::now();
 
     // 过滤合法的支撑点索引
@@ -52,13 +58,27 @@ PivotTable::PivotTable(const vector<shared_ptr<MetricData>>& allData,
 
     // 提取支撑点
     for (int idx : validIndices) {
+=======
+    // 记录开始时间
+    auto start = high_resolution_clock::now();
+
+    // 提取支撑点
+    for (int idx : pivotIndices) {
+        if (idx < 0 || idx >= static_cast<int>(allData.size())) {
+            throw out_of_range("pivot index out of range");
+        }
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
         pivots_.push_back(allData[idx]);
     }
 
     // 将非支撑点加入 data_
     for (size_t i = 0; i < allData.size(); ++i) {
         bool isPivot = false;
+<<<<<<< HEAD
         for (int pivotIdx : validIndices) {
+=======
+        for (int pivotIdx : pivotIndices) {
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
             if (static_cast<size_t>(pivotIdx) == i) {
                 isPivot = true;
                 break;
@@ -72,6 +92,10 @@ PivotTable::PivotTable(const vector<shared_ptr<MetricData>>& allData,
     // 构建距离表（同时创建距离函数）
     buildDistanceTable(distanceType, data_var);
 
+<<<<<<< HEAD
+=======
+    // 记录结束时间
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
 
@@ -79,7 +103,11 @@ PivotTable::PivotTable(const vector<shared_ptr<MetricData>>& allData,
     cout << "[预处理] 缓存条目数: " << pivots_.size() * data_.size() << endl;
     cout << "[预处理] 耗时: " << duration.count() << " ms" << endl;
 
+<<<<<<< HEAD
     selectedPivotIndices_ = validIndices;
+=======
+    selectedPivotIndices_ = pivotIndices;  // 记录选中的索引
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
 }
 
 // 构建距离表：支撑点到每个非支撑点的距离
@@ -87,11 +115,14 @@ void PivotTable::buildDistanceTable(int distanceType, int data_var) {
 
     distance_ = MetricSpaceSearch::createDistanceFunction(distanceType, data_var);  // 创建距离函数
 
+<<<<<<< HEAD
     if (pivots_.empty() || data_.empty()) {
         distanceTable_.clear();
         return;
     }
 
+=======
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
     distanceTable_.resize(pivots_.size());
     for (size_t p = 0; p < pivots_.size(); ++p) {
         distanceTable_[p].resize(data_.size());
@@ -103,6 +134,7 @@ void PivotTable::buildDistanceTable(int distanceType, int data_var) {
 
 // 批建构造函数（传入支撑点个数）
 PivotTable::PivotTable(const vector<shared_ptr<MetricData>>& allData,
+<<<<<<< HEAD
     int k,
     int distanceType,
     int data_var)
@@ -125,6 +157,14 @@ PivotTable::PivotTable(const vector<shared_ptr<MetricData>>& allData,
     if (actual_k <= 0) {
         buildEmpty(distanceType, data_var);
         return;
+=======
+                       int k,
+                       int distanceType,
+                       int data_var)
+{
+    if (allData.size() < static_cast<size_t>(k)) {
+        throw invalid_argument("支撑点个数不能大于数据集大小");
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
     }
 
     cout << "[预处理] 开始计算支撑点距离..." << endl;
@@ -132,16 +172,27 @@ PivotTable::PivotTable(const vector<shared_ptr<MetricData>>& allData,
 
     auto start = high_resolution_clock::now();
 
+<<<<<<< HEAD
     // 随机选取支撑点索引
     vector<int> pivotIndices = selectRandomPivots(allData.size(), actual_k);
     selectedPivotIndices_ = pivotIndices;
 
     // 提取支撑点
+=======
+    // 自动选取 k 个支撑点（随机）
+    vector<int> pivotIndices = selectRandomPivots(allData.size(), k);
+    selectedPivotIndices_ = pivotIndices;
+
+    // 提取支撑点和非支撑点
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
     for (int idx : pivotIndices) {
         pivots_.push_back(allData[idx]);
     }
 
+<<<<<<< HEAD
     // 提取非支撑点
+=======
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
     for (size_t i = 0; i < allData.size(); ++i) {
         bool isPivot = false;
         for (int pivotIdx : pivotIndices) {
@@ -175,11 +226,14 @@ vector<shared_ptr<MetricData>> PivotTable::search(
 {
     vector<shared_ptr<MetricData>> result;
 
+<<<<<<< HEAD
     //保护：如果无数据，直接返回
     if (data_.empty() && pivots_.empty()) {
         return result;
     }
 
+=======
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
     // 第一步：计算所有支撑点到查询对象的距离
     vector<long double> qDists(pivots_.size());
     for (size_t p = 0; p < pivots_.size(); ++p) {
@@ -332,6 +386,7 @@ void PivotTable::interactiveRangeSearch(
 
     // 输出距离计算次数
     std::cout << "\n本次查询共调用距离函数: " << PivotTable::getDistanceCalculations() << " 次（来自 PivotTable 内部统计）" << std::endl;
+<<<<<<< HEAD
 }
 
 void PivotTable::buildEmpty(int distanceType, int data_var) {
@@ -345,4 +400,6 @@ void PivotTable::buildEmpty(int distanceType, int data_var) {
     distance_ = MetricSpaceSearch::createDistanceFunction(distanceType, data_var);
 
     // distanceCalculations_ 是 static，无需在此初始化
+=======
+>>>>>>> 9b3d32b80eaa277037a4b596a70cf11c348ef11d
 }
