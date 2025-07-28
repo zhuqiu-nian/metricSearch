@@ -1,7 +1,7 @@
 #include "../../../include/index_structure/GeneralHyper-planeTree/GHTLeafNode.h"
 #include "../../../include/utils/MetricSpaceSearch.h"
 
-GHTLeafNode::GHTLeafNode(const DataList& data, int distanceType, int dataType)
+GHTLeafNode::GHTLeafNode(const DataList& data, int distanceType, int dataType, std::vector<int> selectedPivots)
     : dataList_(data), distanceType_(distanceType), dataType_(dataType), isEmpty_(true)
 {
     // 先判断数据是否为空
@@ -12,7 +12,7 @@ GHTLeafNode::GHTLeafNode(const DataList& data, int distanceType, int dataType)
 
     // 数据非空，再尝试构造 PivotTable
     try {
-        pivotTable_ = std::make_unique<PivotTable>(data, 1, distanceType, dataType);  // 正常构造
+        pivotTable_ = std::make_unique<PivotTable>(data, selectedPivots, distanceType, dataType);  // 正常构造
         isEmpty_ = false;
     }
     catch (const std::exception& e) {

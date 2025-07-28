@@ -123,6 +123,12 @@
     <ClCompile Include="src\index_structure\MultipleVantagePointTree\MVPTree.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\intrinsic_dimension\IntrinsicDimensionEstimator.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PivotSelector\PivotSelector.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\core\Data_subclass\all_dataHead.h">
@@ -234,6 +240,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\index_structure\MultipleVantagePointTree\MVPTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\intrinsic_dimension\IntrinsicDimensionEstimator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PivotSelector\PivotSelector.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,15 @@
-﻿  VPTInternalNode.cpp
-  VPTLeafNode.cpp
+﻿  PivotSelector.cpp
+D:\研究生\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(20,27): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\研究生\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(85,27): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\研究生\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(139,27): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\研究生\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(217,27): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\研究生\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(283,27): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+D:\研究生\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(335,12): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+  GHTree.cpp
+  MVPTree.cpp
+  PivotTable.cpp
+D:\研究生\metricSearch\metricSearch\src\index_structure\PivotTable\PivotTable.cpp(137,75): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
   VPTree.cpp
   正在生成代码...
-  metricSearch.vcxproj -> C:\Users\1\Desktop\研究生\metricSearch\x64\Debug\metricSearch.exe
+  LINK : 没有找到 D:\研究生\metricSearch\x64\Debug\metricSearch.exe 或上一个增量链接没有生成它；正在执行完全链接
+  metricSearch.vcxproj -> D:\研究生\metricSearch\x64\Debug\metricSearch.exe

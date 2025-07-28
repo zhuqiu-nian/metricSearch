@@ -5,7 +5,7 @@
 
 class GHTLeafNode : public GHTNode {
 public:
-    explicit GHTLeafNode(const DataList& data, int distanceType, int dataType);
+    explicit GHTLeafNode(const DataList& data, int distanceType, int dataType, std::vector<int> selectedPivots);
     std::vector<DataPtr> rangeSearch(const MetricData& q, long double r, long long* distanceCount) override;
 
 private:

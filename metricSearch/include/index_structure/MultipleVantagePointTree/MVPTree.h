@@ -12,7 +12,8 @@ class MVPTree {
 public:
     static std::unique_ptr<MVPTNode> bulkLoad(const std::vector<DataPtr>& data,
         int k, int f,
-        int distanceType, int dataType);
+        int distanceType, int dataType,
+        std::vector<int> selectedPivots);
 
     static void runMVPTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& dataset,
         int distanceType,

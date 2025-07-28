@@ -10,7 +10,8 @@ class VPTree {
 public:
     static std::unique_ptr<VPTNode> bulkLoad(const std::vector<std::shared_ptr<MetricData>>& data,
         int distanceType,
-        int dataType);
+        int dataType,
+        std::vector<int> selectedPivots);
 
     static void runVPTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& dataset,
         int distanceType,

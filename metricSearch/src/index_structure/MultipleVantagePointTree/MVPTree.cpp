@@ -5,6 +5,7 @@
 #include "../../../include/interfaces/MetricDistance.h"
 #include "../../../include/utils/MetricSpaceSearch.h"
 #include "../../../include/utils/Solution.h"
+#include "../../PivotSelector/PivotSelector.h"
 
 #include <algorithm>
 #include <iostream>
@@ -15,9 +16,10 @@ long long MVPTree::distanceCalculations_ = 0;
 
 std::unique_ptr<MVPTNode> MVPTree::bulkLoad(const std::vector<DataPtr>& data,
     int k, int f,
-    int distanceType, int dataType) {
+    int distanceType, int dataType,
+    std::vector<int> selectedPivots) {
     if (data.size() <= MaxLeafSize) {
-        return std::make_unique<MVPTLeafNode>(data, distanceType, dataType);
+        return std::make_unique<MVPTLeafNode>(data, distanceType, dataType, selectedPivots);
     }
 
     auto dist = MetricSpaceSearch::createDistanceFunction(distanceType, dataType);
@@ -47,7 +49,7 @@ std::unique_ptr<MVPTNode> MVPTree::bulkLoad(const std::vector<DataPtr>& data,
 
     std::vector<std::unique_ptr<MVPTNode>> children;
     for (auto& part : partitions) {
-        children.push_back(bulkLoad(part, k, f, distanceType, dataType));
+        children.push_back(bulkLoad(part, k, f, distanceType, dataType, selectedPivots));
     }
 
     return std::make_unique<MVPTInternalNode>(
@@ -142,8 +144,24 @@ void MVPTree::runMVPTRangeSearch(const std::vector<std::shared_ptr<MetricData>>&
         return;
     }
 
+    //选择支撑点选择算法
+    PivotSelector::SelectionMethod method = PivotSelector::selectPivotMethodFromUser();
+
+    //创建距离函数
+    auto dist = MetricSpaceSearch::createDistanceFunction(distanceType, dataType);  // 创建距离函数
+
+    //调用 PivotSelector 生成支撑点索引
+    double alpha = 0.35; // 稀疏空间法参数
+    std::vector<int> selectedPivots = PivotSelector::selectPivots(
+        dataset,
+        k,
+        dist,
+        method,
+        alpha
+    );
+
     // 构建 MVP 树
-    auto treeRoot = MVPTree::bulkLoad(dataset, k, f, distanceType, dataType);
+    auto treeRoot = MVPTree::bulkLoad(dataset, k, f, distanceType, dataType, selectedPivots);
 
     // 用户选择查询点来源
     int querySource;
@@ -196,6 +214,7 @@ void MVPTree::runMVPTRangeSearch(const std::vector<std::shared_ptr<MetricData>>&
     }
 
     // 获取查询对象
+
     const MetricData& query = *queryPtr;
 
     // 执行范围查询

@@ -1,5 +1,6 @@
 #include "../../../include/index_structure/PivotTable/PivotTable.h"
 #include "../../../include/utils/Solution.h"
+#include "../../PivotSelector/PivotSelector.h"
 #include <stdexcept>
 #include <limits>
 #include <iostream>
@@ -257,6 +258,7 @@ void PivotTable::interactiveRangeSearch(
         return;
     }
 
+    // --- 1. 输入支撑点个数 ---
     int pivotCount;
     std::cout << "请输入支撑点个数: ";
     std::cin >> pivotCount;
@@ -266,6 +268,28 @@ void PivotTable::interactiveRangeSearch(
         return;
     }
 
+    // --- 2. 选择支撑点选择算法 ---
+    PivotSelector::SelectionMethod method = PivotSelector::selectPivotMethodFromUser();
+
+    // --- 3. 创建距离函数 ---
+    auto dist = MetricSpaceSearch::createDistanceFunction(distanceType, dataType);  // 创建距离函数
+
+    // --- 4. 调用 PivotSelector 生成支撑点索引 ---
+    double alpha = 0.35; // 稀疏空间法参数
+    std::vector<int> selectedPivots = PivotSelector::selectPivots(
+        dataset,
+        pivotCount,
+        dist,
+        method,
+        alpha
+    );
+
+    if (selectedPivots.empty()) {
+        std::cerr << "未能生成有效的支撑点列表。" << std::endl;
+        return;
+    }
+
+    // --- 5. 输入查询参数 ---
     int queryIndex;
     std::cout << "请选择查询对象索引 (0-" << dataset.size() - 1 << "): ";
     std::cin >> queryIndex;
@@ -284,17 +308,7 @@ void PivotTable::interactiveRangeSearch(
         return;
     }
 
-    // 自动生成支撑点索引
-    std::vector<int> indices(dataset.size());
-    std::iota(indices.begin(), indices.end(), 0);
-
-    std::random_device rd;
-    std::mt19937 g(rd());
-    std::shuffle(indices.begin(), indices.end(), g);
-
-    std::vector<int> selectedPivots(indices.begin(), indices.begin() + pivotCount);
-
-    // 构建 PivotTable
+    // --- 6. 构建 PivotTable ---
     PivotTable pt(dataset, selectedPivots, distanceType, dataType);
 
     // 重置计数器

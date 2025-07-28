@@ -7,7 +7,7 @@
 
 class VPTLeafNode : public VPTNode {
 public:
-    explicit VPTLeafNode(const DataList& data, int distanceType, int dataType);
+    explicit VPTLeafNode(const DataList& data, int distanceType, int dataType, std::vector<int> selectedPivots);
     std::vector<DataPtr> rangeSearch(const MetricData& q, long double r, long long* distanceCount) ;
     DataList getAll() const override;
 

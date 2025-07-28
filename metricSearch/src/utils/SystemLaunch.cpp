@@ -1,5 +1,10 @@
 #include "../../include/utils/SystemLaunch.h"
 #include "../../include/index_structure/all_indexHead.h"
+#include "../src/intrinsic_dimension/IntrinsicDimensionEstimator.h"
+
+using std::cin;
+using std::cout;
+using std::endl;
 
 //启动主系统，为了main函数简洁，我把他们独立出来了
 int systemLaunch() {
@@ -48,6 +53,15 @@ int systemLaunch() {
 		int index_var = 0;
 		cout << "请选择索引结构：\n1.线性扫描；\n2.Pivot Table\n3.General Hyper-plane Tree\n4.Vantage Point Tree\n5.Multiple Vantage Point Tree" << endl;
 		cin >> index_var;
+
+		//选择支撑点个数计算方法
+		int pivot_var = 0;
+		cout << "请选择支撑点个数计算方法\n1.基于均值和方差\n2.基于范围查询 + 线性回归\n3.基于距离矩阵 PCA 特征值\n";
+		cin >> pivot_var;
+
+		int pivotNum = IntrinsicDimensionEstimator::selectOptimalK(dataset, pivot_var, data_num, dataType, distanceType);
+
+
 
 		//1.线性扫描
 		if (index_var == 1) {

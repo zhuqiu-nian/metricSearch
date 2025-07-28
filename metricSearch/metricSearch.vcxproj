@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -102,6 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +120,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard_C>Default</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,6 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -160,10 +164,12 @@
     <ClCompile Include="src\index_structure\VantagePointTree\VPTInternalNode.cpp" />
     <ClCompile Include="src\index_structure\VantagePointTree\VPTLeafNode.cpp" />
     <ClCompile Include="src\index_structure\VantagePointTree\VPTree.cpp" />
+    <ClCompile Include="src\intrinsic_dimension\IntrinsicDimensionEstimator.cpp" />
     <ClCompile Include="src\metric_search\MetricNearestNeighbor.cpp" />
     <ClCompile Include="src\metric_search\MetricRangeQuery.cpp" />
     <ClCompile Include="src\metric_search\MetricSpaceBoundedKNN.cpp" />
     <ClCompile Include="src\metric_search\MetricSpaceKNN.cpp" />
+    <ClCompile Include="src\PivotSelector\PivotSelector.cpp" />
     <ClCompile Include="src\utils\LoadData.cpp" />
     <ClCompile Include="src\utils\MetricSpaceSearch.cpp" />
     <ClCompile Include="src\utils\Solution.cpp" />
@@ -207,6 +213,8 @@
     <ClInclude Include="include\utils\MetricSpaceSearch.h" />
     <ClInclude Include="include\utils\Solution.h" />
     <ClInclude Include="include\utils\SystemLaunch.h" />
+    <ClInclude Include="src\intrinsic_dimension\IntrinsicDimensionEstimator.h" />
+    <ClInclude Include="src\PivotSelector\PivotSelector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
