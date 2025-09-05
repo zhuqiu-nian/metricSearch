@@ -1,15 +1,85 @@
-﻿  PivotSelector.cpp
-D:\研究生\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(20,27): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\研究生\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(85,27): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\研究生\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(139,27): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\研究生\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(217,27): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\研究生\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(283,27): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\研究生\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(335,12): warning C4244: “初始化”: 从“__int64”转换到“int”，可能丢失数据
+﻿  metricSearchMain.cpp
+  VectorData.cpp
+  EditDistance.cpp
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\core\Distance_subclass\EditDistance.cpp(12,48): warning C4267: “=”: 从“size_t”转换到“_Ty”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\core\Distance_subclass\EditDistance.cpp(12,48): warning C4267:         with
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\core\Distance_subclass\EditDistance.cpp(12,48): warning C4267:         [
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\core\Distance_subclass\EditDistance.cpp(12,48): warning C4267:             _Ty=int
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\core\Distance_subclass\EditDistance.cpp(12,48): warning C4267:         ]
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\core\Distance_subclass\EditDistance.cpp(13,48): warning C4267: “=”: 从“size_t”转换到“_Ty”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\core\Distance_subclass\EditDistance.cpp(13,48): warning C4267:         with
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\core\Distance_subclass\EditDistance.cpp(13,48): warning C4267:         [
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\core\Distance_subclass\EditDistance.cpp(13,48): warning C4267:             _Ty=int
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\core\Distance_subclass\EditDistance.cpp(13,48): warning C4267:         ]
+  EuclideanDistance.cpp
+  HammingDistance.cpp
+  LonePointDistance.cpp
+  ChebyshevDistance.cpp
+  ManhattanDistance.cpp
+  WeightedEditDistance.cpp
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\core\Distance_subclass\WeightedEditDistance.cpp(105,11): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\core\Distance_subclass\WeightedEditDistance.cpp(106,11): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  GHTInternalNode.cpp
+  GHTLeafNode.cpp
   GHTree.cpp
+  MVPTInternalNode.cpp
+  MVPTLeafNode.cpp
   MVPTree.cpp
   PivotTable.cpp
-D:\研究生\metricSearch\metricSearch\src\index_structure\PivotTable\PivotTable.cpp(137,75): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\index_structure\PivotTable\PivotTable.cpp(137,63): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  VPTInternalNode.cpp
+  VPTLeafNode.cpp
   VPTree.cpp
+  IntrinsicDimensionEstimator.cpp
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\intrinsic_dimension\IntrinsicDimensionEstimator.cpp(12,10): error C1083: 无法打开包括文件: “Eigen/Dense”: No such file or directory
   正在生成代码...
-  LINK : 没有找到 D:\研究生\metricSearch\x64\Debug\metricSearch.exe 或上一个增量链接没有生成它；正在执行完全链接
-  metricSearch.vcxproj -> D:\研究生\metricSearch\x64\Debug\metricSearch.exe
+  正在编译...
+  MetricNearestNeighbor.cpp
+  MetricRangeQuery.cpp
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricRangeQuery.cpp(28,129): warning C4244: “=”: 从“_Rep”转换到“long”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricRangeQuery.cpp(28,129): warning C4244:         with
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricRangeQuery.cpp(28,129): warning C4244:         [
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricRangeQuery.cpp(28,129): warning C4244:             _Rep=__int64
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricRangeQuery.cpp(28,129): warning C4244:         ]
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricRangeQuery.cpp(87,77): warning C4244: “=”: 从“_Rep”转换到“long”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricRangeQuery.cpp(87,77): warning C4244:         with
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricRangeQuery.cpp(87,77): warning C4244:         [
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricRangeQuery.cpp(87,77): warning C4244:             _Rep=__int64
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricRangeQuery.cpp(87,77): warning C4244:         ]
+  MetricSpaceBoundedKNN.cpp
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceBoundedKNN.cpp(38,100): warning C4244: “=”: 从“_Rep”转换到“long”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceBoundedKNN.cpp(38,100): warning C4244:         with
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceBoundedKNN.cpp(38,100): warning C4244:         [
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceBoundedKNN.cpp(38,100): warning C4244:             _Rep=__int64
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceBoundedKNN.cpp(38,100): warning C4244:         ]
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceBoundedKNN.cpp(139,73): warning C4244: “=”: 从“_Rep”转换到“long”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceBoundedKNN.cpp(139,73): warning C4244:         with
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceBoundedKNN.cpp(139,73): warning C4244:         [
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceBoundedKNN.cpp(139,73): warning C4244:             _Rep=__int64
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceBoundedKNN.cpp(139,73): warning C4244:         ]
+  MetricSpaceKNN.cpp
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceKNN.cpp(37,100): warning C4244: “=”: 从“_Rep”转换到“long”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceKNN.cpp(37,100): warning C4244:         with
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceKNN.cpp(37,100): warning C4244:         [
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceKNN.cpp(37,100): warning C4244:             _Rep=__int64
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceKNN.cpp(37,100): warning C4244:         ]
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceKNN.cpp(126,73): warning C4244: “=”: 从“_Rep”转换到“long”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceKNN.cpp(126,73): warning C4244:         with
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceKNN.cpp(126,73): warning C4244:         [
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceKNN.cpp(126,73): warning C4244:             _Rep=__int64
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\metric_search\MetricSpaceKNN.cpp(126,73): warning C4244:         ]
+  PivotSelector.cpp
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\PivotSelector\PivotSelector.cpp(10,10): error C1083: 无法打开包括文件: “Eigen/Dense”: No such file or directory
+  LoadData.cpp
+  MetricSpaceSearch.cpp
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\utils\MetricSpaceSearch.cpp(44,46): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\utils\MetricSpaceSearch.cpp(44,32): warning C4267: “初始化”: 从“size_t”转换到“const int”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\utils\MetricSpaceSearch.cpp(84,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  Solution.cpp
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\utils\Solution.cpp(70,85): warning C4244: “=”: 从“_Rep”转换到“long”，可能丢失数据
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\utils\Solution.cpp(70,85): warning C4244:         with
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\utils\Solution.cpp(70,85): warning C4244:         [
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\utils\Solution.cpp(70,85): warning C4244:             _Rep=__int64
+C:\Users\zjy\source\repos\zhuqiu-nian\metricSearch\metricSearch\src\utils\Solution.cpp(70,85): warning C4244:         ]
+  SystemLaunch.cpp
+  正在生成代码...

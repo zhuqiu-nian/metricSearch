@@ -140,7 +140,6 @@ void GHTree::runGHTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& d
     }
 
 
-=======
     // 获取用户输入：查询对象索引
     int queryIndex;
     std::cout << "请选择查询对象索引 (0-" << dataset.size() - 1 << "): ";
