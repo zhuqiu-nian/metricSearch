@@ -11,15 +11,12 @@
 |index_structure|索引结构|
 |metric_search|顺序式检索算法（弃用）|
 |[Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page)|用于PCA计算|
-
 |**src**| 实现文件|
 |utils|工具类|
 |core|数据类型和距离函数子类实现|
 |intrinsic_dimension|支撑点个数算法（本征维度）|
 |PivotSelector|支撑点选择算法|
-
 |**tests** | 测试文件|
-
 |**data**|数据集|
 |**umad.txt**| 数据集-数据集来源： [UMAD](https://gitee.com/UMAD/UMAD/wikis/pages?sort_id=2497170&doc_id=840507#12-%E6%95%B0%E6%8D%AE%E9%9B%86%E4%BB%8B%E7%BB%8D) |
 # 3.修改日志
