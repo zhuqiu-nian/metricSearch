@@ -152,6 +152,17 @@ void VPTree::runVPTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& d
     }
 
 
+=======
+    // 获取用户输入：查询对象索引
+    int queryIndex;
+    std::cout << "请选择查询对象索引 (0-" << dataset.size() - 1 << "): ";
+    std::cin >> queryIndex;
+
+    if (queryIndex < 0 || queryIndex >= static_cast<int>(dataset.size())) {
+        std::cerr << "无效的查询对象索引。" << std::endl;
+        return;
+    }
+
     // 获取用户输入：查询半径 r
     long double threshold;
     std::cout << "请输入查询半径 r: ";
