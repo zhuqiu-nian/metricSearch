@@ -129,6 +129,51 @@
     <ClCompile Include="src\PivotSelector\PivotSelector.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="tests\test_MVPTandGHT\test_MVPTandGHT.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\ApollonianTree\ApollonianInternalNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\ApollonianTree\ApollonianLeafNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\ApollonianTree\ApollonianTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\CGHTree\CGHTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\CGHTree\CGHTInternalNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\CGHTree\CGHTLeafNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\test_MVPTandGHT\testCorrectness.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\CLPTree\CLPTree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\CLPTree\CLPTInternalNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\index_structure\CLPTree\CLPTLeafNode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\CLPPartitioner.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\r_neighborhood\RNeighborhood.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\r_neighborhood\test_r_neighborhood.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\launch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\core\Data_subclass\all_dataHead.h">
@@ -248,5 +293,61 @@
     <ClInclude Include="src\PivotSelector\PivotSelector.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\index_structure\ApollonianTree\ApollonianTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\ApollonianTree\ApollonianNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\ApollonianTree\ApollonianLeafNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\ApollonianTree\ApollonianInternalNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CGHTree\CGHTLeafNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CGHTree\CGHTInternalNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CGHTree\CGHTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CGHTree\CGHTNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CLPTree\CLPTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CLPTree\CLPTNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CLPTree\CLPTInternalNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CLPTree\CLPTLeafNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\CLPPartitioner.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\r_neighborhood\RNeighborhood.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\r_neighborhood\test_r_neighborhood.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_MVPTandGHT\testCorrectness.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_MVPTandGHT\test_MVPTandGHT.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\vector\texas.txt" />
+    <Text Include="data\vector\hawii.txt" />
+    <Text Include="data\vector\Uniform-20-d-vector.txt" />
   </ItemGroup>
 </Project>

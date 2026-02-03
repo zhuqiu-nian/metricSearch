@@ -1,4 +1,4 @@
-// VPTInternalNode.cpp
+﻿// VPTInternalNode.cpp
 #include "../../../include/index_structure/VantagePointTree/VPTInternalNode.h"
 #include "../../../include/index_structure/VantagePointTree/VPTLeafNode.h"
 #include "../../../include/interfaces/MetricDistance.h"
@@ -11,27 +11,38 @@ VPTInternalNode::VPTInternalNode(DataPtr vp,
     std::shared_ptr<MetricDistance> dist)
     : vp_(vp), splitRadius_(radius), left_(std::move(left)), right_(std::move(right)), dist_(dist) {}
 
-std::vector<DataPtr> VPTInternalNode::rangeSearch(const MetricData& q, long double r, long long* distanceCount)  {
+std::vector<DataPtr> VPTInternalNode::rangeSearch(const MetricData& q, long double r, long long* distanceCount) {
     std::vector<DataPtr> result;
 
     long double d_vq = dist_->distance(q, *vp_);
-    if (distanceCount) (*distanceCount)++;  // ͳ��һ�ξ������
+    if (distanceCount) (*distanceCount)++;  // 统计一次距离计算
 
+    // 1. 检查支撑点是否在查询范围内
     if (d_vq <= r) {
         result.push_back(vp_);
     }
 
-    // ������������ �� splitRadius + r
-    if (d_vq <= splitRadius_ + r) {
+    // 2. 处理左子树（内部点：d(vp, x) <= splitRadius_）
+    if (d_vq + splitRadius_ <= r) {
+        //完全包含：左子树所有点都在查询球内
+        DataList leftAll = left_->getAll();
+        result.insert(result.end(), leftAll.begin(), leftAll.end());
+    }
+    else if (d_vq <= splitRadius_ + r) {
+        // 部分重叠：需要递归搜索
         auto leftResults = left_->rangeSearch(q, r, distanceCount);
         result.insert(result.end(), leftResults.begin(), leftResults.end());
     }
+    // else: 完全不相交，跳过
 
-    // ������������ > splitRadius - r
-    if (d_vq + r >= splitRadius_) {
+    // 3. 处理右子树（外部点：d(vp, x) > splitRadius_）
+    if (d_vq >= splitRadius_ - r) {
+        // 注意：原条件 "d_vq + r >= splitRadius_" 等价于 "d_vq >= splitRadius_ - r"
+        // 但这里无法做“完全包含”优化（因为右子树无上界），只能剪枝或递归
         auto rightResults = right_->rangeSearch(q, r, distanceCount);
         result.insert(result.end(), rightResults.begin(), rightResults.end());
     }
+    // else: 完全不相交（d_vq + r < splitRadius_ ⇒ 所有右子树点离 q 太远），跳过
 
     return result;
 }

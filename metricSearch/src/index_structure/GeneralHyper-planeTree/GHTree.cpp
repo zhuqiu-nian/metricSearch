@@ -24,29 +24,39 @@ std::pair<DataPtr, DataPtr> GHTree::selectPivots(const DataList& data) {
 }
 
 // 批量构建 GHT 树
-std::unique_ptr<GHTNode> GHTree::bulkLoad(const DataList& data,
+std::unique_ptr<GHTNode> GHTree::bulkLoad(
+    const DataList& data,
     int distanceType,
     int dataType,
-    std::vector<int> selectedPivots)
+    PivotSelector::SelectionMethod method)
 {
     const int MaxLeafSize = 20;
 
     if (data.size() <= MaxLeafSize) {
-        return std::make_unique<GHTLeafNode>(data, distanceType, dataType, selectedPivots);
+        return std::make_unique<GHTLeafNode>(data, distanceType, dataType, method);
     }
 
-    auto [c1, c2] = selectPivots(data);
-
-    // 创建距离函数
+    // 创建距离函数（每次递归都相同，可考虑提升到外层传入以优化）
     auto dist = MetricSpaceSearch::createDistanceFunction(distanceType, dataType);
 
+    //关键：在当前 data 子集上选择 2 个支撑点
+    std::vector<int> pivotIndices = PivotSelector::selectPivots(
+        data,           // 当前子集
+        2,              // GHT 必须为 2
+        dist,
+        method,         // 用户选择的算法
+        0.35            // alpha 参数（仅某些方法使用，可设默认值）
+    );
+
+    DataPtr c1 = data[pivotIndices[0]];
+    DataPtr c2 = data[pivotIndices[1]];
+
+    // 划分数据
     DataList leftData, rightData;
     for (const auto& item : data) {
         if (item == c1 || item == c2) continue;
-
         long double d1 = dist->distance(*item, *c1);
         long double d2 = dist->distance(*item, *c2);
-
         if (d1 <= d2) {
             leftData.push_back(item);
         }
@@ -55,8 +65,9 @@ std::unique_ptr<GHTNode> GHTree::bulkLoad(const DataList& data,
         }
     }
 
-    auto left = bulkLoad(leftData, distanceType, dataType, selectedPivots);
-    auto right = bulkLoad(rightData, distanceType, dataType, selectedPivots);
+    // 递归构建子树（传递相同的 method）
+    auto left = bulkLoad(leftData, distanceType, dataType, method);
+    auto right = bulkLoad(rightData, distanceType, dataType, method);
 
     return std::make_unique<GHTInternalNode>(c1, c2, std::move(left), std::move(right), dist);
 }
@@ -71,14 +82,8 @@ void GHTree::runGHTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& d
     }
 
     //输入支撑点个数
-    int pivotCount;
-    std::cout << "请输入支撑点个数: ";
-    std::cin >> pivotCount;
-
-    if (pivotCount <= 0 || pivotCount >= static_cast<int>(dataset.size())) {
-        std::cerr << "支撑点个数必须大于0且小于数据总数。" << std::endl;
-        return;
-    }
+    std::cout << "\n注意：GHT 每次分裂仅使用 2 个支撑点。\n"
+        "您选择的算法将用于在每个子集中动态选择这 2 个点。\n";
 
     //选择支撑点选择算法
     PivotSelector::SelectionMethod method = PivotSelector::selectPivotMethodFromUser();
@@ -86,18 +91,8 @@ void GHTree::runGHTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& d
     //创建距离函数
     auto dist = MetricSpaceSearch::createDistanceFunction(distanceType, dataType);  // 创建距离函数
 
-    //调用 PivotSelector 生成支撑点索引
-    double alpha = 0.35; // 稀疏空间法参数
-    std::vector<int> selectedPivots = PivotSelector::selectPivots(
-        dataset,
-        pivotCount,
-        dist,
-        method,
-        alpha
-    );
-
     // 构建 GHT 树
-    auto treeRoot = GHTree::bulkLoad(dataset, distanceType, dataType, selectedPivots);
+    auto treeRoot = GHTree::bulkLoad(dataset, distanceType, dataType, method);
 
     // 用户选择查询点来源
     int querySource;
@@ -140,16 +135,6 @@ void GHTree::runGHTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& d
     }
 
 
-=======
-    // 获取用户输入：查询对象索引
-    int queryIndex;
-    std::cout << "请选择查询对象索引 (0-" << dataset.size() - 1 << "): ";
-    std::cin >> queryIndex;
-
-    if (queryIndex < 0 || queryIndex >= static_cast<int>(dataset.size())) {
-        std::cerr << "无效的查询对象索引。" << std::endl;
-        return;
-    }
 
     // 获取用户输入：查询半径 r
     long double threshold;

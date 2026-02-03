@@ -89,6 +89,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -104,6 +105,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,6 +123,7 @@
       <LanguageStandard_C>Default</LanguageStandard_C>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,6 +139,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,6 +158,15 @@
     <ClCompile Include="src\core\Distance_subclass\ChebyshevDistance.cpp" />
     <ClCompile Include="src\core\Distance_subclass\ManhattanDistance.cpp" />
     <ClCompile Include="src\core\Distance_subclass\WeightedEditDistance.cpp" />
+    <ClCompile Include="src\index_structure\ApollonianTree\ApollonianInternalNode.cpp" />
+    <ClCompile Include="src\index_structure\ApollonianTree\ApollonianLeafNode.cpp" />
+    <ClCompile Include="src\index_structure\ApollonianTree\ApollonianTree.cpp" />
+    <ClCompile Include="src\index_structure\CGHTree\CGHTInternalNode.cpp" />
+    <ClCompile Include="src\index_structure\CGHTree\CGHTLeafNode.cpp" />
+    <ClCompile Include="src\index_structure\CGHTree\CGHTree.cpp" />
+    <ClCompile Include="src\index_structure\CLPTree\CLPTInternalNode.cpp" />
+    <ClCompile Include="src\index_structure\CLPTree\CLPTLeafNode.cpp" />
+    <ClCompile Include="src\index_structure\CLPTree\CLPTree.cpp" />
     <ClCompile Include="src\index_structure\GeneralHyper-planeTree\GHTInternalNode.cpp" />
     <ClCompile Include="src\index_structure\GeneralHyper-planeTree\GHTLeafNode.cpp" />
     <ClCompile Include="src\index_structure\GeneralHyper-planeTree\GHTree.cpp" />
@@ -170,10 +183,16 @@
     <ClCompile Include="src\metric_search\MetricSpaceBoundedKNN.cpp" />
     <ClCompile Include="src\metric_search\MetricSpaceKNN.cpp" />
     <ClCompile Include="src\PivotSelector\PivotSelector.cpp" />
+    <ClCompile Include="src\r_neighborhood\RNeighborhood.cpp" />
+    <ClCompile Include="src\r_neighborhood\test_r_neighborhood.cpp" />
+    <ClCompile Include="src\utils\CLPPartitioner.cpp" />
     <ClCompile Include="src\utils\LoadData.cpp" />
     <ClCompile Include="src\utils\MetricSpaceSearch.cpp" />
     <ClCompile Include="src\utils\Solution.cpp" />
     <ClCompile Include="src\utils\SystemLaunch.cpp" />
+    <ClCompile Include="tests\launch.cpp" />
+    <ClCompile Include="tests\test_MVPTandGHT\testCorrectness.cpp" />
+    <ClCompile Include="tests\test_MVPTandGHT\test_MVPTandGHT.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\core\Data_subclass\all_dataHead.h" />
@@ -189,6 +208,18 @@
     <ClInclude Include="include\core\Distance_subclass\ManhattanDistance.h" />
     <ClInclude Include="include\core\Distance_subclass\WeightedEditDistance.h" />
     <ClInclude Include="include\index_structure\all_indexHead.h" />
+    <ClInclude Include="include\index_structure\ApollonianTree\ApollonianInternalNode.h" />
+    <ClInclude Include="include\index_structure\ApollonianTree\ApollonianLeafNode.h" />
+    <ClInclude Include="include\index_structure\ApollonianTree\ApollonianNode.h" />
+    <ClInclude Include="include\index_structure\ApollonianTree\ApollonianTree.h" />
+    <ClInclude Include="include\index_structure\CGHTree\CGHTInternalNode.h" />
+    <ClInclude Include="include\index_structure\CGHTree\CGHTLeafNode.h" />
+    <ClInclude Include="include\index_structure\CGHTree\CGHTNode.h" />
+    <ClInclude Include="include\index_structure\CGHTree\CGHTree.h" />
+    <ClInclude Include="include\index_structure\CLPTree\CLPTInternalNode.h" />
+    <ClInclude Include="include\index_structure\CLPTree\CLPTLeafNode.h" />
+    <ClInclude Include="include\index_structure\CLPTree\CLPTNode.h" />
+    <ClInclude Include="include\index_structure\CLPTree\CLPTree.h" />
     <ClInclude Include="include\index_structure\GeneralHyper-planeTree\GHTInternalNode.h" />
     <ClInclude Include="include\index_structure\GeneralHyper-planeTree\GHTLeafNode.h" />
     <ClInclude Include="include\index_structure\GeneralHyper-planeTree\GHTNode.h" />
@@ -209,12 +240,22 @@
     <ClInclude Include="include\metric_search\MetricRangeQuery.h" />
     <ClInclude Include="include\metric_search\MetricSpaceBoundedKNN.h" />
     <ClInclude Include="include\metric_search\MetricSpaceKNN.h.h" />
+    <ClInclude Include="include\utils\CLPPartitioner.h" />
     <ClInclude Include="include\utils\LoadData.h" />
     <ClInclude Include="include\utils\MetricSpaceSearch.h" />
     <ClInclude Include="include\utils\Solution.h" />
     <ClInclude Include="include\utils\SystemLaunch.h" />
     <ClInclude Include="src\intrinsic_dimension\IntrinsicDimensionEstimator.h" />
     <ClInclude Include="src\PivotSelector\PivotSelector.h" />
+    <ClInclude Include="src\r_neighborhood\RNeighborhood.h" />
+    <ClInclude Include="src\r_neighborhood\test_r_neighborhood.h" />
+    <ClInclude Include="tests\test_MVPTandGHT\testCorrectness.h" />
+    <ClInclude Include="tests\test_MVPTandGHT\test_MVPTandGHT.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\vector\hawii.txt" />
+    <Text Include="data\vector\texas.txt" />
+    <Text Include="data\vector\Uniform-20-d-vector.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

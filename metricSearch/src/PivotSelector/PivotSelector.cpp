@@ -396,7 +396,9 @@ std::vector<int> PivotSelector::selectByPCAOnCandidates(
     k_candidate = std::min(k_candidate, 100); // 上限100，避免过大
 
     auto candidateIndices = selectByFarthestFirstTraversal(allData, k_candidate, dist);
-    std::cout << "📊 使用 FFT 选出 " << k_candidate << " 个拐点作为PCA候选集\n";
+    /*
+    std::cout << "使用 FFT 选出 " << k_candidate << " 个拐点作为PCA候选集\n";
+    */
 
     // Step 2: 构造支撑点空间：每个点 x 映射为 (d(x,c1), d(x,c2), ..., d(x,ck_candidate))
     int d = k_candidate; // 支撑点空间维度
@@ -451,6 +453,32 @@ std::vector<int> PivotSelector::selectByPCAOnCandidates(
 }
 
 // ---------------------------
+// 方法7：随机选点
+// ---------------------------
+std::vector<int> PivotSelector::selectByRandom(
+    const std::vector<std::shared_ptr<MetricData>>& allData,
+    int k)
+{
+    int n = static_cast<int>(allData.size());
+    if (k >= n) {
+        // 返回全部索引
+        std::vector<int> indices(n);
+        std::iota(indices.begin(), indices.end(), 0);
+        return indices;
+    }
+
+    std::vector<int> indices(n);
+    std::iota(indices.begin(), indices.end(), 0);
+
+    std::random_device rd;
+    std::mt19937 g(rd());
+    std::shuffle(indices.begin(), indices.end(), g);
+
+    indices.resize(k);
+    return indices;
+}
+
+// ---------------------------
 // 主接口
 // ---------------------------
 std::vector<int> PivotSelector::selectPivots(
@@ -460,6 +488,12 @@ std::vector<int> PivotSelector::selectPivots(
     SelectionMethod method,
     double alpha)
 {
+    if (allData.empty() || k <= 0) {
+        return {};
+    }
+
+    int actualK = std::min(k, static_cast<int>(allData.size()));
+
     switch (method) {
     case MAX_VARIANCE:
         return selectByMaxVariance(allData, k, dist);
@@ -473,6 +507,8 @@ std::vector<int> PivotSelector::selectPivots(
         return selectByIncrementalSampling(allData, k, dist, alpha);
     case PCA_ON_CANDIDATES:
         return selectByPCAOnCandidates(allData, k, dist, alpha);
+    case RANDOM: //  新增分支
+        return selectByRandom(allData, actualK);
     default:
         std::cerr << "未知方法，默认使用最大方差法。\n";
         return selectByMaxVariance(allData, k, dist); // 默认
@@ -491,7 +527,8 @@ PivotSelector::SelectionMethod PivotSelector::selectPivotMethodFromUser()
     std::cout << "4. 最远优先遍历法   -- 均匀覆盖数据空间 (FFT)\n";
     std::cout << "5. 增量采样法       -- 优化支撑点空间分辨能力 (Bustos)\n";
     std::cout << "6. 拐点PCA法        -- 在FFT拐点集上运行PCA，选主方向极值点\n";
-    std::cout << "请选择 (1-6): ";
+    std::cout << "7. 随机选点        \n";
+    std::cout << "请选择 (1-7): ";
 
     int choice;
     std::cin >> choice;
@@ -520,6 +557,10 @@ PivotSelector::SelectionMethod PivotSelector::selectPivotMethodFromUser()
     case 6:
         std::cout << "已选择：拐点PCA法\n";
         return PivotSelector::PCA_ON_CANDIDATES;
+
+    case 7:
+        std::cout << "已选择：随机选点\n";
+        return PivotSelector::RANDOM;
 
     default:
         std::cerr << "无效选择，默认使用【最大方差法】。\n";

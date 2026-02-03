@@ -4,10 +4,11 @@
 
 #include "VPTNode.h"
 #include "../PivotTable/PivotTable.h"
+#include "../src/PivotSelector/PivotSelector.h"
 
 class VPTLeafNode : public VPTNode {
 public:
-    explicit VPTLeafNode(const DataList& data, int distanceType, int dataType, std::vector<int> selectedPivots);
+    explicit VPTLeafNode(const DataList& data, int distanceType, int dataType, PivotSelector::SelectionMethod method);
     std::vector<DataPtr> rangeSearch(const MetricData& q, long double r, long long* distanceCount) ;
     DataList getAll() const override;
 
