@@ -14,7 +14,8 @@ public:
         SPARSE_SPACE,      // 方法3：稀疏空间选择 (Brisaboa et al.)
         FARTHEST_FIRST_TRAVERSAL, // 方法4：最远优先遍历 (FFT)
         INCREMENTAL_SAMPLING,    // 方法5：增量采样法 (Bustos)
-        PCA_ON_CANDIDATES      // 方法6：基于候选拐点的PCA
+        PCA_ON_CANDIDATES,      // 方法6：基于候选拐点的PCA
+        RANDOM              //随机
     };
 
     /**
@@ -79,4 +80,9 @@ private:
         int k,
         const std::shared_ptr<MetricDistance>& dist,
         double alpha); // alpha 用于控制候选集大小（可选）
+
+    //  新增私有方法，随机
+    static std::vector<int> selectByRandom(
+        const std::vector<std::shared_ptr<MetricData>>& allData,
+        int k);
 };

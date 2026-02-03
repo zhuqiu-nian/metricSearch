@@ -2,31 +2,34 @@
 #include "../../../include/index_structure/VantagePointTree/VPTLeafNode.h"
 #include "../../../include/interfaces/MetricDistance.h"
 #include "../../../include/utils/MetricSpaceSearch.h"
+#include "../../PivotSelector/PivotSelector.h"
+#include <stdexcept>
 
-VPTLeafNode::VPTLeafNode(const DataList& data, int distanceType, int dataType,std::vector<int> selectedPivots)
+VPTLeafNode::VPTLeafNode(const DataList& data,
+    int distanceType,
+    int dataType,
+    PivotSelector::SelectionMethod method)
     : dataList_(data), distanceType_(distanceType), dataType_(dataType), isEmpty_(true)
 {
-    // 先判断数据是否为空
     if (data.empty()) {
-        // 空节点：不构造 PivotTable，保持 isEmpty_ = true
-        return;
+        return; // 空节点
     }
 
-    // 数据非空，再尝试构造 PivotTable
     try {
-        
-        pivotTable_ = std::make_unique<PivotTable>(data, selectedPivots, distanceType, dataType);  // 正常构造
+        auto dist = MetricSpaceSearch::createDistanceFunction(distanceType, dataType);
+        // 从当前叶子数据中动态选择 1 个 pivot
+        std::vector<int> pivots = PivotSelector::selectPivots(data, 1, dist, method, 0.35);
+        pivotTable_ = std::make_unique<PivotTable>(data, pivots, distanceType, dataType);
         isEmpty_ = false;
     }
     catch (const std::exception& e) {
-        // 如果构造失败（比如 k=1 但数据有问题），也视为空节点
-        std::cerr << "[MVPTLeafNode] 构造 PivotTable 失败: " << e.what() << std::endl;
+        std::cerr << "[VPTLeafNode] 构造 PivotTable 失败: " << e.what() << std::endl;
         isEmpty_ = true;
     }
 }
 
-std::vector<DataPtr> VPTLeafNode::rangeSearch(const MetricData& q, long double r, long long* distanceCount)  {
-    if (!pivotTable_) {  // 或 if (isEmpty_)
+std::vector<DataPtr> VPTLeafNode::rangeSearch(const MetricData& q, long double r, long long* distanceCount) {
+    if (!pivotTable_) {
         return {};
     }
     return pivotTable_->search(q, r, distanceCount);

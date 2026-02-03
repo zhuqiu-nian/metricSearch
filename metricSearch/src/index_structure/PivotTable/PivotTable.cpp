@@ -30,8 +30,7 @@ PivotTable::PivotTable(const vector<shared_ptr<MetricData>>& allData,
         }
     }
 
-    cout << "[预处理] 开始计算支撑点距离..." << endl;
-    cout << "[预处理] 数据集大小: " << allData.size() << endl;
+
 
     auto start = high_resolution_clock::now();
 
@@ -76,9 +75,7 @@ PivotTable::PivotTable(const vector<shared_ptr<MetricData>>& allData,
     auto end = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(end - start);
 
-    cout << "[预处理] 完成！" << endl;
-    cout << "[预处理] 缓存条目数: " << pivots_.size() * data_.size() << endl;
-    cout << "[预处理] 耗时: " << duration.count() << " ms" << endl;
+
 
     selectedPivotIndices_ = validIndices;
 }
@@ -290,15 +287,47 @@ void PivotTable::interactiveRangeSearch(
     }
 
     // --- 5. 输入查询参数 ---
-    int queryIndex;
-    std::cout << "请选择查询对象索引 (0-" << dataset.size() - 1 << "): ";
-    std::cin >> queryIndex;
+    // 用户选择查询点来源
+    int querySource;
+    cout << "请选择查询点来源：\n"
+        << "1 - 从现有数据集中选择\n"
+        << "2 - 自定义输入新查询点\n"
+        << "请输入选项编号：";
+    cin >> querySource;
 
-    if (queryIndex < 0 || queryIndex >= static_cast<int>(dataset.size())) {
-        std::cerr << "无效的查询对象索引。" << std::endl;
+    if (cin.fail() || (querySource != 1 && querySource != 2)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "输入无效，请选择 1 或 2。\n";
         return;
     }
 
+    shared_ptr<MetricData> queryPtr;
+
+    if (querySource == 1) {
+        int queryIndex;
+        cout << "请选择一个查询对象索引（0 到 " << dataset.size() - 1 << "）：";
+        cin >> queryIndex;
+
+        if (cin.fail() || queryIndex < 0 || queryIndex >= static_cast<int>(dataset.size())) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "输入无效，请输入有效的索引范围。\n";
+            return;
+        }
+        queryPtr = dataset[queryIndex];
+    }
+    else {
+        try {
+            queryPtr = inputCustomQuery(dataType);
+        }
+        catch (const exception& e) {
+            cout << "自定义输入失败：" << e.what() << endl;
+            return;
+        }
+    }
+
+    // 获取用户输入：查询半径 r
     long double threshold;
     std::cout << "请输入查询半径 r: ";
     std::cin >> threshold;
@@ -309,27 +338,27 @@ void PivotTable::interactiveRangeSearch(
     }
 
     // --- 6. 构建 PivotTable ---
-    PivotTable pt(dataset, selectedPivots, distanceType, dataType);
+    PivotTable pt(dataset, selectedPivots, distanceType, dataType);//!!!!!!!!PivotTable我实现了两种构建算法，即传入支撑点集和支撑点个数的，这里使用的是第一种，所以没有问题
 
     // 重置计数器
     PivotTable::resetDistanceCalculations();
 
     // 获取查询对象
-    auto query = dataset[queryIndex];
+    const MetricData& query = *queryPtr;
 
     // 执行范围查询
-    auto results = pt.search(*query, threshold);// 不传外部计数器时使用类内变量
+    auto results = pt.search(query, threshold);// 不传外部计数器时使用类内变量
 
     //过滤掉查询对象本身
     std::vector<std::shared_ptr<MetricData>> filteredResults;
     for (const auto& item : results) {
-        if (item.get() != query.get()) {  // 比较指针地址，判断是否是同一个对象
+        if (item.get() != queryPtr.get()) {  // 比较指针地址，判断是否是同一个对象
             filteredResults.push_back(item);
         }
     }
 
     // 输出当前查询对象信息
-    std::cout << "\n- 查询对象 #" << queryIndex << ": " << dataset[queryIndex]->toString() << std::endl;
+    std::cout << "\n- 查询对象 #" << queryPtr << ": " << queryPtr->toString() << std::endl;
 
     // 输出结果
     std::cout << "\n找到匹配项数量（不包括查询对象自身）: " << filteredResults.size() << std::endl;

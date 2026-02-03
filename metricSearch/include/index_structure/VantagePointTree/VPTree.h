@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <memory>
+#include "../src/PivotSelector/PivotSelector.h"
 #include "VPTNode.h"
 
 class VPTree {
@@ -11,7 +12,7 @@ public:
     static std::unique_ptr<VPTNode> bulkLoad(const std::vector<std::shared_ptr<MetricData>>& data,
         int distanceType,
         int dataType,
-        std::vector<int> selectedPivots);
+        PivotSelector::SelectionMethod method);
 
     static void runVPTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& dataset,
         int distanceType,
@@ -27,7 +28,8 @@ private:
     static std::pair<DataPtr, long double> selectVPAndRadius(
         const std::vector<DataPtr>& data,
         int distanceType,
-        int dataType);
+        int dataType,
+        PivotSelector::SelectionMethod method);
 
     static long double getMedianRadius(
         const std::vector<DataPtr>& data,

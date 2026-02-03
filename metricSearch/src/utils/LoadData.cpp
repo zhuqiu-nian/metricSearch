@@ -106,6 +106,13 @@ DataList loadUMADData(int data_var, int data_num) {
 //加载向量数据
 vector<shared_ptr<VectorData>> loadVectorData(const string& filename, int num_vectors) {
     ifstream file(filename);
+
+    /* 添加调试信息
+    std::cout << ">>> 尝试加载文件: " << filename << std::endl;
+    std::cout << ">>> 绝对路径: " << std::filesystem::absolute(filename).string() << std::endl;
+    std::cout << ">>> 文件是否存在? " << std::filesystem::exists(filename) << std::endl;
+    std::cout << ">>> 是普通文件? " << std::filesystem::is_regular_file(filename) << std::endl;*/
+
     if (!file.is_open()) {
         cerr << "[错误] 无法打开文件: " << filename << endl;
         throw runtime_error("无法打开文件: " + filename);

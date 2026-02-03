@@ -3,6 +3,7 @@
 #include "GHTNode.h"
 #include "../../interfaces/MetricDistance.h"  // 包含 MetricDistance 及其子类定义
 #include "../../interfaces/MetricData.h"
+#include "../src/PivotSelector/PivotSelector.h"
 #include <memory>
 
 class GHTree {
@@ -10,7 +11,7 @@ public:
     static std::unique_ptr<GHTNode> bulkLoad(const DataList& data,
         int distanceType,
         int dataType,
-        std::vector<int> selectedPivots);
+        PivotSelector::SelectionMethod method);
 
     static void runGHTRangeSearch(const std::vector<std::shared_ptr<MetricData>>& dataset,
         int distanceType,
