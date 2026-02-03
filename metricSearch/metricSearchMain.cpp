@@ -1,4 +1,4 @@
-#include "include/core/Data_subclass/all_dataHead.h"
+ï»¿#include "include/core/Data_subclass/all_dataHead.h"
 #include "include/core/Distance_subclass/all_distanceHead.h"
 #include "include/utils/MetricSpaceSearch.h"
 #include "include/utils/Solution.h"
@@ -14,7 +14,7 @@ int main() {
         
     }
     catch (const exception& e) {
-        cout << "´íÎó: " << e.what() << endl;
+        cout << "é”™è¯¯: " << e.what() << endl;
         return 1;
     }
 
