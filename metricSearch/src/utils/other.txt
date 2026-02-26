@@ -1,0 +1,161 @@
+太恶心了，我不干了
+
+std::map<
+    const MetricDistance*,
+    std::map<const MetricData*, std::map<const MetricData*, long double>>
+> MetricSpaceSearch::pivotDistanceCaches;
+
+void MetricSpaceSearch::analyzePerformanceForAll(
+    const std::vector<std::shared_ptr<MetricData>>& dataset,
+    const std::vector<std::vector<std::vector<SearchResult>>>& allResults,
+    const std::vector<std::shared_ptr<MetricData>>& queries)
+{
+    cout << "\n===== 性能分析汇总 =====\n";
+
+    // 获取所有使用的距离函数
+    const auto& distanceFuncs = allResults.front().front();
+
+    cout << "[分析] 共测试了 " << distanceFuncs.size() << " 种距离函数：" << endl;
+    for (const auto& res : distanceFuncs) {
+        cout << "  - " << res.distanceFunc->getName() << endl;
+    }
+
+    for (size_t q_idx = 0; q_idx < queries.size(); ++q_idx) {
+        const auto& query = queries[q_idx];
+        const auto& perQueryResults = allResults[q_idx];
+
+        cout << "\n--- 查询对象: " << query->toString() << " ---\n";
+
+        for (size_t d_idx = 0; d_idx < distanceFuncs.size(); ++d_idx) {
+            long long totalCalculations = 0;
+            long long totalTime = 0;
+
+            for (const auto& pivotResults : perQueryResults) {
+                const auto& res = pivotResults[d_idx];
+                totalCalculations += res.calculations;
+                totalTime += res.timeMicrosec;
+            }
+
+            const auto& distName = distanceFuncs[d_idx].distanceFunc->getName();
+            cout << "[分析] 距离函数: " << distName << endl;
+            cout << "  平均计算次数: " << totalCalculations / perQueryResults.size() << endl;
+            cout << "  平均耗时: " << totalTime / perQueryResults.size() << " μs" << endl;
+        }
+    }
+}
+
+// 获取所有距离函数
+vector<shared_ptr<MetricDistance>> distanceFuncs =
+MetricSpaceSearch::getAllDistanceFunctions(data_var);
+
+// 预处理所有距离函数
+MetricSpaceSearch::precomputeDistancesForAll(dataset, distanceFuncs);
+
+// 运行多距离函数实验
+runExperimentsWithMultipleDistances(dataset, data_num, 0, data_var);
+
+// 支持为多个距离函数预计算支撑点距离缓存
+template<typename T>
+static void precomputeDistancesForAll(
+    const std::vector<std::shared_ptr<T>>& dataset,
+    const std::vector<std::shared_ptr<MetricDistance>>& distanceFuncs) {
+
+    static_assert(std::is_base_of_v<MetricData, T>,
+        "Template type T must inherit from MetricData");
+
+    std::cout << "[预处理] 开始为多个距离函数预计算支撑点距离..." << std::endl;
+    std::cout << "[预处理] 数据集大小: " << dataset.size() << std::endl;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    pivotDistanceCaches.clear();  // 使用 map<distance_func, cache>
+
+    for (const auto& distFunc : distanceFuncs) {
+        std::map<const MetricData*, std::map<const MetricData*, long double>> cache;
+
+        for (const auto& pivot : dataset) {
+            for (const auto& data : dataset) {
+                if (pivot != data) {
+                    cache[pivot.get()][data.get()] =
+                        distFunc->distance(*pivot, *data);
+                }
+            }
+        }
+
+        pivotDistanceCaches[distFunc] = cache;
+    }
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+    isPrecomputed = true;
+    cachedDatasetSize = dataset.size();
+
+    std::cout << "[预处理] 完成！" << std::endl;
+    std::cout << "[预处理] 缓存距离函数数: " << pivotDistanceCaches.size() << std::endl;
+    std::cout << "[预处理] 耗时: " << duration.count() << " ms" << std::endl;
+}
+
+void runExperimentsWithMultipleDistances(
+    const vector<shared_ptr<MetricData>>& dataset,
+    int data_num,
+    int enableAllDistances,  // 0=所有；1/2/3=指定单个
+    int data_var)            // 1=向量；2=字符串;3=蛋白质
+{
+    cout << "[信息] 开始运行多距离函数实验..." << endl;
+
+    if (dataset.empty()) {
+        cerr << "[错误] 数据集为空。" << endl;
+        return;
+    }
+
+    vector<shared_ptr<MetricDistance>> distanceFuncs;
+
+    if (enableAllDistances == 0) {
+        distanceFuncs = MetricSpaceSearch::getAllDistanceFunctions(data_var);
+    }
+    else {
+        auto func = MetricSpaceSearch::createDistanceFunction(enableAllDistances, data_var);
+        distanceFuncs = { func };
+    }
+
+    cout << "[信息] 正在预处理所有距离函数..." << endl;
+    MetricSpaceSearch::precomputeDistancesForAll(dataset, distanceFuncs);  // 使用新预处理函数
+
+    vector<vector<vector<MetricSpaceSearch::SearchResult>>> allQueriesResults;
+
+    // 对每个查询对象进行实验
+    for (int i = 0; i < data_num && i < dataset.size(); ++i) {
+        auto query = dataset[i];
+
+        vector<vector<MetricSpaceSearch::SearchResult>> roundResults;
+
+        // 测试每个支撑点
+        for (int j = 0; j < data_num && j < dataset.size(); ++j) {
+            if (i == j) continue;
+
+            auto pivot = dataset[j];
+            vector<MetricSpaceSearch::SearchResult> resultsPerPivot;
+
+            // 对每种距离函数执行一次查询
+            for (const auto& distFunc : distanceFuncs) {
+                auto start = std::chrono::high_resolution_clock::now();
+                auto result = MetricSpaceSearch::nearestNeighbor(dataset, query, distFunc, pivot);
+                auto end = std::chrono::high_resolution_clock::now();
+
+                result.timeMicrosec = std::chrono::duration_cast<std::chrono::microseconds>(end - start).count();
+                result.distanceFunc = distFunc;
+                result.pivot = pivot;
+
+                resultsPerPivot.push_back(result);
+            }
+
+            roundResults.push_back(resultsPerPivot);
+        }
+
+        allQueriesResults.push_back(roundResults);
+    }
+
+    // 综合分析性能
+    MetricSpaceSearch::analyzePerformanceForAll(dataset, allQueriesResults, dataset);
+}
