@@ -1,0 +1,205 @@
+// 度量空间数据父类
+class MetricData {
+public:
+    virtual ~MetricData() = default;
+    virtual string toString() const = 0;
+    virtual int getId() const = 0;
+};
+// 度量空间距离函数父类
+class MetricDistance {
+public:
+    virtual ~MetricDistance() = default;
+    virtual long double distance(const MetricData& a, const MetricData& b) const = 0;
+    virtual string getName() const = 0;
+};
+#pragma once
+#include "../../interfaces/MetricData.h"
+#include <string>
+
+class StringData : public MetricData {
+    std::string str_;
+    int id_;
+public:
+    StringData(const std::string& s, int id) : str_(s), id_(id) {}
+
+    const std::string& getString() const { return str_; }
+    int getId() const  { return id_; }
+    std::string toString() const override {
+        return "StringData(id=" + std::to_string(id_) + ", str=" + str_ + ")";
+    }
+};
+#pragma once
+#include "../../interfaces/MetricData.h"
+
+// 向量数据类
+class VectorData : public MetricData {
+public:
+    VectorData(vector<long double> vec, int id = -1);
+    const vector<long double>& getVector() const;
+    int getId() const;
+    string toString() const override;
+
+private:
+    vector<long double> vector_;
+    int id_;
+};
+#pragma once
+#include "../../interfaces/MetricDistance.h"
+#include  <string>
+
+// 欧几里得距离
+class EuclideanDistance : public MetricDistance {
+public:
+    long double distance(const MetricData& a, const MetricData& b) const override;
+    string getName() const override;
+};
+class EditDistance : public MetricDistance {
+public:
+    long double distance(const MetricData& a, const MetricData& b) const override;
+    std::string getName() const override { return "编辑距离"; }
+};
+class MetricSpaceSearch {
+public:
+    struct SearchResult {
+        shared_ptr<MetricData> nearest;// 找到的最近邻数据点
+        shared_ptr<MetricData> pivot;// 使用的支撑点
+        long double distance;// 查询点到最近邻的距离
+        int calculations; // 距离计算的次数
+        long timeMicrosec;// 搜索耗时(微秒)
+        vector<string> steps;// 搜索过程的步骤记录
+        shared_ptr<MetricDistance> distanceFunc; // 使用的距离函数
+
+        // 添加构造函数
+        SearchResult() :
+            distance(numeric_limits<long double>::max()),
+            calculations(0),
+            timeMicrosec(0) {}
+    };
+
+    //用于存储距离的哈希表
+    static unordered_map<MetricData*, unordered_map<MetricData*, long double>> pivotDistanceCache;//存储单个缓存
+    static bool isPrecomputed;
+    static size_t cachedDatasetSize;
+
+
+    // 模板化预处理函数，为单个距离函数计算缓存
+    template<typename T>
+    static void precomputeDistances(
+        const std::vector<std::shared_ptr<T>>& dataset,
+        const std::shared_ptr<MetricDistance>& distanceFunc) {
+
+        // 编译时类型检查
+        static_assert(std::is_base_of_v<MetricData, T>,
+            "Template type T must inherit from MetricData");
+
+        //开始预处理
+        clearCache();
+        std::cout << "[预处理] 开始计算支撑点距离..." << std::endl;
+        std::cout << "[预处理] 数据集大小: " << dataset.size() << std::endl;
+        auto start = chrono::high_resolution_clock::now();
+
+        pivotDistanceCache.clear();
+        for (const auto& pivot : dataset) {
+            for (const auto& data : dataset) {
+                if (pivot != data) {
+                    pivotDistanceCache[pivot.get()][data.get()] =
+                        distanceFunc->distance(*pivot, *data);
+                }
+            }
+        }
+
+        //预处理完成
+        auto end = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+        isPrecomputed = true;
+        cachedDatasetSize = dataset.size();
+
+        std::cout << "[预处理] 完成！" << std::endl;
+        std::cout << "[预处理] 缓存条目数: " << pivotDistanceCache.size() << std::endl;
+        std::cout << "[预处理] 耗时: " << duration.count() << " ms" << std::endl;
+    }
+
+    // 清理缓存
+    static void clearCache();
+
+    //基于三角不等式的度量空间最近邻搜索算法
+    static SearchResult nearestNeighbor(
+        const vector<shared_ptr<MetricData>>& dataset,
+        const shared_ptr<MetricData>& query,
+        const shared_ptr<MetricDistance>& distanceFunc,
+        const shared_ptr<MetricData>& pivot = nullptr);
+
+    //分析搜索性能
+    static void analyzePerformance(
+        const vector<shared_ptr<MetricData>>& dataset,
+        const vector<vector<SearchResult>>& allResults,
+        const shared_ptr<MetricData>& query);
+
+    static void analyzePerformanceForAll(
+        const std::vector<std::shared_ptr<MetricData>>& dataset,
+        const std::vector<std::vector<std::vector<SearchResult>>>& allResults,
+        const std::vector<std::shared_ptr<MetricData>>& queries);
+
+
+    //硬编码每个组的距离函数
+    static vector<shared_ptr<MetricDistance>> getAllDistanceFunctions(int data_var) {
+        if (data_var == 1) {
+            // 向量数据支持的距离函数
+            return {
+                make_shared<ManhattanDistance>(),
+                make_shared<EuclideanDistance>(),
+                make_shared<ChebyshevDistance>(),
+                make_shared<LonePointDistance>()
+            };
+        }
+        else if (data_var == 2) {
+            // 字符串数据支持的距离函数
+            return {
+                make_shared<EditDistance>()
+            };
+        }
+        else if (data_var == 3) {
+            // 蛋白质数据支持的距离函数
+            return {
+                make_shared<WeightedEditDistance>()
+            };
+        }
+        return {};
+    }
+
+    //硬编码每个组的距离函数
+    static shared_ptr<MetricDistance> createDistanceFunction(int distanceType, int data_var) {
+        if (data_var == 1) {
+            // 向量数据
+            switch (distanceType) {
+            case 1: return make_shared<EuclideanDistance>();
+            case 2: return make_shared<ChebyshevDistance>();
+            case 3: return make_shared<LonePointDistance>();
+            case 4: return make_shared<ManhattanDistance>();
+            default:
+                throw invalid_argument("不支持的向量距离函数类型: " + to_string(distanceType));
+            }
+        }
+        else if (data_var == 2) {
+            // 字符串数据
+            switch (distanceType) {
+            case 1: return make_shared<EditDistance>();
+            case 2: return make_shared<HammingDistance>();
+            default:
+                throw invalid_argument("不支持的字符串距离函数类型: " + to_string(distanceType));
+            }
+        }
+        else if (data_var == 3) {
+            // 蛋白质序列数据
+            switch (distanceType) {
+            case 1: return make_shared<WeightedEditDistance>();
+            default:
+                throw invalid_argument("不支持的蛋白质序列距离函数类型: " + to_string(distanceType));
+            }
+        }
+        else {
+            throw invalid_argument("未知的数据类型: " + to_string(data_var));
+        }
+    }
+};
