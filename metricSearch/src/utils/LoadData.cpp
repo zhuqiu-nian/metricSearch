@@ -50,11 +50,13 @@ DataList loadUMADData(int data_var, int data_num) {
     std::filesystem::path p = fs::absolute(baseDir + "/" + subDir);
     std::string fullPath = p.string();
 
+    // 检查路径是否存在
     if (!fs::exists(fullPath) || !fs::is_directory(fullPath)) {
         std::cerr << "[错误] 文件夹不存在或不是目录: " << fullPath << "\n";
         return result;
     }
 
+    // 列出目录下所有文件
     std::vector<std::string> files;
     for (const auto& entry : fs::directory_iterator(fullPath)) {
         if (entry.is_regular_file()) {
@@ -67,6 +69,7 @@ DataList loadUMADData(int data_var, int data_num) {
         return result;
     }
 
+    // 显示选项并让用户选择
     std::cout << "[选择数据集] 在 '" << dataType << "' 类型中找到以下文件：\n";
     for (size_t i = 0; i < files.size(); ++i) {
         std::cout << "  " << i + 1 << ". " << files[i] << "\n";

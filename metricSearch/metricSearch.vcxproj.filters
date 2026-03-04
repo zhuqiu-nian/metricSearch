@@ -902,6 +902,9 @@
     <ClInclude Include="include\Eigen\src\Eigenvalues\Tridiagonalization.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\Eigen\src\Geometry\arch\Geometry_SIMD.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="include\Eigen\src\Geometry\AlignedBox.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -1235,6 +1238,9 @@
     <ClInclude Include="include\Eigen\src\SparseLU\SparseLU_Utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\Eigen\src\SparseLU\SparseLUImpl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
     <ClInclude Include="include\Eigen\src\SparseQR\SparseQR.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -1272,6 +1278,57 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\Eigen\src\UmfPackSupport\UmfPackSupport.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\ApollonianTree\ApollonianInternalNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\ApollonianTree\ApollonianLeafNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\ApollonianTree\ApollonianNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\ApollonianTree\ApollonianTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CGHTree\CGHTInternalNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CGHTree\CGHTLeafNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CGHTree\CGHTNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CGHTree\CGHTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CLPTree\CLPTInternalNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CLPTree\CLPTLeafNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CLPTree\CLPTNode.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\index_structure\CLPTree\CLPTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\utils\CLPPartitioner.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_MVPTandGHT\test_MVPTandGHT.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\test_MVPTandGHT\testCorrectness.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\r_neighborhood\RNeighborhood.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\r_neighborhood\test_r_neighborhood.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
